@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX" xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters;assembly=Ui.MauiX"
+             x:Class="Ui.MauiX.Test.Views.PageCacheSupplementalPageControls">
+    <ContentView.Content>
+        <customControls:Setter
+            InputMode="Toggle"
+            Label="Page Caching"
+            ToggleState="{Binding ArePagesCached, Converter={mauiXConverters:BoolToToggleStateConverter}}" />
+    </ContentView.Content>
+</ContentView>

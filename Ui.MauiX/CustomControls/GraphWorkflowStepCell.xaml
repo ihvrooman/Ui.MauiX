@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.GraphWorkflowStepCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:skiaSharp="clr-namespace:SkiaSharp;assembly=SkiaSharp"
+    x:Name="this"
+    BackgroundColor="White">
+    <ContentView.Content>
+        <Grid
+            Padding="10"
+            HeightRequest="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <customControls:CompletedWorkflowStepView Grid.Row="0" />
+
+            <Label
+                Grid.Row="1"
+                Margin="15,0"
+                FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MediumFontSize}"
+                IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}"
+                LineBreakMode="WordWrap"
+                Text="{Binding Description}"
+                VerticalOptions="Start"
+                VerticalTextAlignment="Center" />
+
+            <customControls:Graph
+                Grid.Row="2"
+                BorderThickness="0"
+                DataSeries="{Binding DataSeries}"
+                GraphSettings="{Binding GraphSettings}" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.MultiAlphaNumericInputWorkflowStepCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXEnums="clr-namespace:Ui.MauiX.Enums"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    x:Name="this"
+    BackgroundColor="White"
+    mc:Ignorable="d">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid Margin="10" RowDefinitions="*, Auto">
+            <ScrollView
+                Grid.Row="0"
+                BackgroundColor="{Binding Source={x:Reference this}, Path=BackgroundColor}"
+                IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}">
+                <customControls:ItemsControl ItemsSource="{Binding InputInfo}">
+                    <customControls:ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <customControls:Setter
+                                IconResourceId="{Binding IconResourceId}"
+                                InputMode="{Binding InputMode}"
+                                IsRequired="{Binding IsRequired}"
+                                Label="{Binding Label}"
+                                Max="{Binding Max}"
+                                MaxNumberOfDecimalPlaces="{Binding MaxNumberOfDecimalPlaces}"
+                                Min="{Binding Min}"
+                                MinNumberOfDecimalPlaces="{Binding MinNumberOfDecimalPlaces}"
+                                PatternMask="{Binding PatternMask}"
+                                ReservedCharacters="{Binding ReservedCharacters}"
+                                ValueSuffix="{Binding ValueSuffix}"
+                                Value="{Binding Value}" />
+                        </DataTemplate>
+                    </customControls:ItemsControl.ItemTemplate>
+                </customControls:ItemsControl>
+            </ScrollView>
+
+            <customControls:CustomButton
+                x:Name="ConfirmButton"
+                Grid.Row="1"
+                BackgroundColor="Green"
+                BorderThickness="0"
+                Clicked="ConfirmButton_Clicked"
+                CornerRadius="20"
+                FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=SmallFontSize}"
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding SelectedItem, Converter={mauiXConverters:ObjectToIsNullConverter}, ConverterParameter=invert}"
+                IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}"
+                Text="Confirm"
+                TextColor="White"
+                WidthRequest="150" />
+
+            <customControls:CompletedWorkflowStepView Grid.Row="0" Grid.RowSpan="2" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

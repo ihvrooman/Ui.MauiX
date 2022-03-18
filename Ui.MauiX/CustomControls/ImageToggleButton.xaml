@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:BaseToggleControl
+    x:Class="Ui.MauiX.CustomControls.ImageToggleButton"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    x:Name="this">
+    <customControls:BaseToggleControl.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ImageToggleButton_Tapped" />
+    </customControls:BaseToggleControl.GestureRecognizers>
+    <customControls:BaseToggleControl.Content>
+        <Image
+            x:Name="Image"
+            Margin="{Binding ImageMargin}"
+            BindingContext="{x:Reference this}"
+            HeightRequest="{Binding ImageSize}"
+            IsEnabled="{Binding IsEnabled}"
+            WidthRequest="{Binding ImageSize}" />
+    </customControls:BaseToggleControl.Content>
+</customControls:BaseToggleControl>

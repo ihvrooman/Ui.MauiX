@@ -1,0 +1,158 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatWorkflowPopup.xaml.cs">
+      <DependentUpon>ChatWorkflowPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatSupplementalPageControls.xaml.cs">
+      <DependentUpon>ChatSupplementalPageControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SingleProcessWorkflowPopup.xaml.cs">
+      <DependentUpon>SingleProcessWorkflowPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\WorkflowPopup.xaml.cs">
+      <DependentUpon>WorkflowPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProcessWorkflowPopup.xaml.cs">
+      <DependentUpon>ProcessWorkflowPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TabPage.xaml.cs">
+      <DependentUpon>TabPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DynamicWorkflowPage.xaml.cs">
+      <DependentUpon>DynamicWorkflowPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CircularProgressPage.xaml.cs">
+      <DependentUpon>CircularProgressPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GraphPage.xaml.cs">
+      <DependentUpon>GraphPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PageCacheSupplementalPageControls.xaml.cs">
+      <DependentUpon>PageCacheSupplementalPageControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PageNavigatorPage.xaml.cs">
+      <DependentUpon>PageNavigatorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DialogPage.xaml.cs">
+      <DependentUpon>DialogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SelectionPage.xaml.cs">
+      <DependentUpon>SelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TogglePage.xaml.cs">
+      <DependentUpon>TogglePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SetterPage.xaml.cs">
+      <DependentUpon>SetterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DetailPage4.xaml.cs">
+      <DependentUpon>DetailPage4.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DetailPage3.xaml.cs">
+      <DependentUpon>DetailPage3.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Device2View.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GraphPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ManualControlPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="TestItemsControlPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="TestOverviewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="TestPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View2.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ControlLibraryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CustomButtonPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DetailPage1.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DetailPage2.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DialogSupplementalPageControls.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LoginPopupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PageCacheSupplementalPageControls.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PageControlsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SelectionSupplementalPageControls.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SetterSupplementalPageControls.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SupplementalHeader.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Tab1.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Tab2.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Tab3.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TabSupplementalPageControls.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TestPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ToggleSupplementalPageControls.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Components\Components.csproj" />
+    <ProjectReference Include="..\Ui.MauiX\Ui.MauiX.csproj" />
+  </ItemGroup>
+</Project>

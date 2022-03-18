@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.ScanWorkflowStepCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    x:Name="this"
+    BackgroundColor="White">
+    <ContentView.Content>
+        <Grid Padding="10">
+            <StackLayout
+                HeightRequest="120"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}"
+                VerticalOptions="Center">
+
+                <Label
+                    Margin="15,0"
+                    FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MediumFontSize}"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding Description}" />
+
+                <customControls:CustomFrame
+                    BorderColor="{Binding FrameColor, Source={x:Reference this}}"
+                    BorderThickness="2"
+                    CornerRadius="6"
+                    WidthRequest="200">
+                    <Entry
+                        x:Name="idEntry"
+                        BackgroundColor="White"
+                        Text="{Binding ScannedValue, Source={x:Reference this}}"
+                        TextChanged="Entry_TextChanged" />
+                </customControls:CustomFrame>
+
+                <StackLayout
+                    HorizontalOptions="Center"
+                    Orientation="Horizontal"
+                    Spacing="3">
+                    <Label
+                        FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MicroFontSize}"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding ExpectedValueString, Source={x:Reference this}}" />
+                    <Label
+                        FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MicroFontSize}"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding ValidationValue}" />
+                </StackLayout>
+            </StackLayout>
+
+            <customControls:CompletedWorkflowStepView />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

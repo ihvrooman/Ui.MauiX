@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <Description>Basic resources and components for any UI</Description>
+    <Copyright />
+    <Authors>Isaac Vrooman</Authors>
+    <Company></Company>
+    <Product />
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Source\Ui\Ui\Ui.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>

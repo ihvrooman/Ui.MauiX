@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customControls:ContentPageWithSetPropertyMethod
+    x:Class="Ui.MauiX.CustomControls.CustomMasterDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:uiEnums="clr-namespace:Ui.Enums;assembly=Ui"
+    x:Name="this">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="HamburgerMenuIconStyle" TargetType="Image">
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <!--
+            * Main grid.
+            * The first column is for the menu when in 'SplitOnPortrait'
+            *   menu mode.
+            * The second column is for the vertical separator when
+            *   in 'SplitOnPortrait' menu mode.
+            * The third column is for the hamburger menu icon when in 'Popover'
+            *   menu mode.
+            * The fourth column is for the header.
+            
+            * The first row is for the hamburger menu icon and the header
+            *   (including the submenu icon and primary toolbar (header) menu
+            *   items).
+            * The second row is for the horizantal separator between the
+            *   header and content.
+            * The third row is for the content.
+        -->
+        <Grid
+            x:Name="MainGrid"
+            BindingContext="{x:Reference this}"
+            ColumnDefinitions="Auto, Auto, Auto, *"
+            ColumnSpacing="0"
+            RowDefinitions="Auto, Auto, *"
+            RowSpacing="0">
+
+            <!--  Main menu when menu mode is split on portrait  -->
+            <customControls:Menu
+                x:Name="PortraitMenu"
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                CustomMenuItems="{Binding CustomMenuItems}"
+                IsVisible="{Binding MenuMode, Converter={mauiXConverters:MenuModeToIsVisibleConverter}, ConverterParameter={x:Static uiEnums:MenuMode.SplitOnPortrait}}"
+                MenuSettings="{Binding MenuSettings}"
+                SelectedMenuItemChanged="Menu_SelectedMenuItemChanged" />
+            <!--  Vertical separator between main menu (when split on portrait) and rest of page  -->
+            <customControls:Separator
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                IsVisible="{Binding MenuMode, Converter={mauiXConverters:MenuModeToIsVisibleConverter}, ConverterParameter={x:Static uiEnums:MenuMode.SplitOnPortrait}}"
+                Orientation="Vertical"
+                Thickness="{Binding MenuSettings.SeparatorThickness}" />
+
+            <!--  Hamburger menu icon for opening menu when in popover mode  -->
+            <customControls:CustomFrame
+                Grid.Row="0"
+                Grid.Column="2"
+                BackgroundColor="{Binding HeaderBackgroundColor}"
+                BorderThickness="0"
+                IsVisible="{Binding MenuMode, Converter={mauiXConverters:MenuModeToIsVisibleConverter}, ConverterParameter={x:Static uiEnums:MenuMode.Popover}}">
+                <Image Source="{mauiXHelpers:ResourceImage ResourceId=menu-ios-50.png}" Style="{StaticResource HamburgerMenuIconStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="HamburgerMenuIcon_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </customControls:CustomFrame>
+
+            <!--  Header, including submenu icon and header menu items  -->
+            <Grid
+                Grid.Row="0"
+                Grid.Column="3"
+                BackgroundColor="{Binding HeaderBackgroundColor}"
+                ColumnDefinitions="*, Auto, Auto"
+                ColumnSpacing="0"
+                RowSpacing="0">
+
+                <!--  Content view that displays users header content  -->
+                <ContentView
+                    Grid.Column="0"
+                    Margin="7,0,10,0"
+                    BackgroundColor="White"
+                    Content="{Binding Header}"
+                    IsVisible="{Binding IsHeaderVisible}" />
+
+                <!--  Primary toolbar items (a.k.a. header menu items)  -->
+                <customControls:ItemsControl
+                    Grid.Column="1"
+                    BackgroundColor="{Binding HeaderMenuSettings.BackgroundColor}"
+                    IsVisible="{Binding SelectedPage, Converter={mauiXConverters:ViewToIsVisibleConverter}, ConverterParameter={x:Static ToolbarItemOrder.Primary}}"
+                    ItemsSource="{Binding SelectedPage, Converter={mauiXConverters:ViewToCustomToolbarItemsConverter}, ConverterParameter={x:Static ToolbarItemOrder.Primary}}"
+                    Orientation="Horizontal">
+                    <customControls:ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <customControls:CustomButton
+                                BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=HeaderMenuSettings.MenuItemBackgroundColor}"
+                                Command="{Binding Command}"
+                                CommandParameter="{Binding CommandParameter}"
+                                CornerRadius="0"
+                                DisabledBackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=HeaderMenuSettings.DisabledMenuItemBackgroundColor}"
+                                DisabledTextColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=HeaderMenuSettings.DisabledMenuItemTextColor}"
+                                FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=HeaderMenuSettings.MenuItemFontSize}"
+                                HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=HeaderMenuSettings.MenuItemHeight}"
+                                Text="{Binding Text}"
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=HeaderMenuSettings.MenuItemTextColor}"
+                                WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=HeaderMenuSettings.MenuItemWidth}" />
+                        </DataTemplate>
+                    </customControls:ItemsControl.ItemTemplate>
+                </customControls:ItemsControl>
+
+                <!--  Submenu icon  -->
+                <Image
+                    Grid.Column="2"
+                    Margin="7,0"
+                    HeightRequest="25"
+                    IsVisible="{Binding SelectedPage, Converter={mauiXConverters:ViewToIsVisibleConverter}, ConverterParameter={x:Static ToolbarItemOrder.Secondary}}"
+                    Source="{mauiXHelpers:ResourceImage ResourceId=more-40.png}"
+                    WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SubmenuIcon_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+
+            <!--  Horizantal separator between header and rest of page  -->
+            <customControls:Separator
+                Grid.Row="1"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Orientation="Horizontal"
+                Thickness="{Binding HeaderMenuSettings.SeparatorThickness}" />
+
+            <!--  Content  -->
+            <ContentView
+                Grid.Row="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                BackgroundColor="{Static resources:CustomColors.BackgroundColor}"
+                Content="{Binding SelectedPage}" />
+
+            <!--  Submenu popup grid  -->
+            <Grid
+                Grid.Row="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                IsVisible="{Binding IsSubmenuVisible}">
+
+                <!--  Grid for closing submenu  -->
+                <Grid>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CloseSubmenu_Tapped" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <customControls:CustomFrame BorderThickness="{Binding MenuSettings.SeparatorThickness}" HorizontalOptions="End" VerticalOptions="Start">
+                    <ScrollView BackgroundColor="{Binding MenuSettings.BackgroundColor}">
+                        <customControls:ItemsControl ItemsSource="{Binding SelectedPage, Converter={mauiXConverters:ViewToCustomToolbarItemsConverter}, ConverterParameter={x:Static ToolbarItemOrder.Secondary}}">
+                            <customControls:ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Vertical" Spacing="0">
+                                        <customControls:MenuItem
+                                            IconImageResourceId="{Binding IconImageResourceId}"
+                                            IsEnabled="{Binding IsEnabled}"
+                                            MenuSettings="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=MenuSettings}"
+                                            Text="{Binding Text}">
+                                            <customControls:MenuItem.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Command}" CommandParameter="{Binding CommandParameter}" />
+                                                <TapGestureRecognizer Tapped="CloseSubmenu_Tapped" />
+                                            </customControls:MenuItem.GestureRecognizers>
+                                        </customControls:MenuItem>
+
+                                        <customControls:Separator Orientation="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=MenuSettings.Orientation, Converter={mauiXConverters:OrientationToInverseOrientationConverter}}" Thickness="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomMasterDetailPage}}, Path=MenuSettings.SeparatorThickness}" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </customControls:ItemsControl.ItemTemplate>
+                        </customControls:ItemsControl>
+                    </ScrollView>
+                </customControls:CustomFrame>
+            </Grid>
+            <!--  Grid that covers header area when submenu popup is shown  -->
+            <Grid
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                IsVisible="{Binding IsSubmenuVisible}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CloseSubmenu_Tapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+
+            <!--  Main menu popover grid  -->
+            <Grid
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                BackgroundColor="{Binding BackgroundFadeColor}"
+                ColumnDefinitions="Auto, Auto, *"
+                ColumnSpacing="0"
+                IsVisible="{Binding IsPopoverMainMenuVisible}"
+                RowDefinitions="Auto, *"
+                RowSpacing="0">
+                <customControls:Separator
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Orientation="Vertical"
+                    Thickness="{Binding MenuSettings.SeparatorThickness}" />
+
+                <customControls:CustomFrame
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="{Binding MenuSettings.BackgroundColor}"
+                    BorderThickness="0">
+                    <Image Source="{mauiXHelpers:ResourceImage ResourceId=menu-ios-50.png}" Style="{StaticResource HamburgerMenuIconStyle}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="HamburgerMenuIcon_Tapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </customControls:CustomFrame>
+
+                <customControls:Menu
+                    x:Name="PopoverMenu"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    CustomMenuItems="{Binding CustomMenuItems}"
+                    MenuSettings="{Binding MenuSettings}"
+                    SelectedMenuItemChanged="Menu_SelectedMenuItemChanged" />
+
+                <!--  Grid for closing menu  -->
+                <Grid
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="2">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ClosePopoverMainMenu_Tapped" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</customControls:ContentPageWithSetPropertyMethod>

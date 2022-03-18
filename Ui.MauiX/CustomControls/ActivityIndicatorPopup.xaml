@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Ui.MauiX.CustomControls.ActivityIndicatorPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Ui.MauiX.CustomControls.ViewModels"
+    BackgroundColor="Transparent"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <viewModels:ActivityIndicatorPopupViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <customControls:CustomActivityIndicator ActivityIndicatorSettings="{Binding ActivityIndicatorSettings}" />
+    </ContentPage.Content>
+</ContentPage>

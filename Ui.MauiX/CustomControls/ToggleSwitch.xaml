@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.ToggleSwitch"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:uiEnums="clr-namespace:Ui.Enums;assembly=Ui"
+    x:Name="this"
+    HeightRequest="30"
+    HorizontalOptions="Start"
+    VerticalOptions="Start">
+    <ContentView.Content>
+        <Grid BindingContext="{x:Reference this}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <customControls:BaseToggleControl
+                x:Name="Toggle"
+                Grid.Column="0"
+                BorderColor="{Binding ToggledColor}"
+                CornerRadius="15"
+                IsEnabled="{Binding IsEnabled}"
+                State="{Binding State}"
+                ToggledColor="{Binding ToggledColor}"
+                UntoggledColor="{Binding UntoggledColor}">
+                <customControls:CustomFrame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ToggleSwitch_Tapped" />
+                </customControls:CustomFrame.GestureRecognizers>
+                <BoxView
+                    x:Name="ToggleBox"
+                    Margin="6"
+                    CornerRadius="8"
+                    HeightRequest="16"
+                    HorizontalOptions="Start"
+                    WidthRequest="16" />
+            </customControls:BaseToggleControl>
+
+            <customControls:CustomLabel
+                x:Name="Label"
+                Grid.Column="1"
+                IsVisible="{Binding IsLabelVisible}"
+                Text="{Binding UntoggledText}"
+                VerticalTextAlignment="Center" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

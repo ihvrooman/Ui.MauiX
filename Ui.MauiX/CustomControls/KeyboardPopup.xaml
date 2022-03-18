@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:BaseInputControl
+    x:Class="Ui.MauiX.CustomControls.KeyboardPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:uiEnums="clr-namespace:Ui.Enums;assembly=Ui"
+    xmlns:viewModels="clr-namespace:Ui.MauiX.CustomControls.ViewModels"
+    x:Name="this"
+    ControlTemplate="{StaticResource InputControlControlTemplate}"
+    mc:Ignorable="d">
+    <customControls:BaseInputControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="10" />
+                <Setter Property="RowSpacing" Value="10" />
+            </Style>
+            <Style
+                x:Key="KeyboardButtonStyle"
+                BasedOn="{StaticResource KeyboardAndNumberPadButtonStyle}"
+                TargetType="customControls:CustomButton">
+                <Setter Property="CornerRadius" Value="7" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="KeyboardImageButtonStyle" TargetType="customControls:CustomFrame">
+                <Setter Property="CornerRadius" Value="7" />
+            </Style>
+            <Style
+                x:Key="InputButtonStyle"
+                BasedOn="{StaticResource KeyboardButtonStyle}"
+                TargetType="customControls:CustomButton">
+                <Setter Property="Command" Value="{Binding AppendToValueCommand}" />
+                <Setter Property="CommandParameter" Value="{Binding Source={RelativeSource Self}, Path=Text}" />
+            </Style>
+        </ResourceDictionary>
+    </customControls:BaseInputControl.Resources>
+
+    <customControls:BaseInputControl.Content>
+        <Grid BindingContext="{x:Reference this}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  Row 0  -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <customControls:CustomButton
+                    Grid.Column="0"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button0String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="1"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button1String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="2"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button2String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="3"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button3String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="4"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button4String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="5"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button5String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="6"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button6String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="7"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button7String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="8"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button8String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="9"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row0Button9String}" />
+            </Grid>
+
+            <!--  Row 1  -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+
+                <customControls:CustomButton
+                    Grid.Column="1"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button0String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="2"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button1String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="3"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button2String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="4"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button3String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="5"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button4String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="6"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button5String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="7"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button6String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="8"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button7String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="9"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row1Button8String}" />
+            </Grid>
+
+            <!--  Row 2  -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Need to set visiblility of both depending on keyboard mode  -->
+                <customControls:CustomButton
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding ShiftCommand}"
+                    IsVisible="{Binding IsKeyboardShowingAlphabeticCharacters, Converter={mauiXConverters:InverseBooleanConverter}}"
+                    Style="{StaticResource KeyboardButtonStyle}"
+                    Text="{Binding Row2Button0String}" />
+                <customControls:CustomFrame
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    IsVisible="{Binding IsKeyboardShowingAlphabeticCharacters}"
+                    Style="{StaticResource KeyboardImageButtonStyle}">
+                    <customControls:CustomFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShiftCommand}" NumberOfTapsRequired="1" />
+                    </customControls:CustomFrame.GestureRecognizers>
+                    <Image Margin="15" Source="{Binding Row2Button1String, Converter={mauiXConverters:ImageSourceFromStringConverter}}" />
+                </customControls:CustomFrame>
+
+                <customControls:CustomButton
+                    Grid.Column="2"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row2Button2String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="3"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row2Button3String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="4"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row2Button4String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="5"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row2Button5String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="6"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row2Button6String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="7"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row2Button7String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="8"
+                    Style="{StaticResource InputButtonStyle}"
+                    Text="{Binding Row2Button8String}" />
+
+                <customControls:CustomFrame
+                    Grid.Column="9"
+                    Grid.ColumnSpan="2"
+                    Style="{StaticResource KeyboardImageButtonStyle}">
+                    <customControls:CustomFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding DeleteCharacterCommand}" />
+                    </customControls:CustomFrame.GestureRecognizers>
+                    <Image Margin="15,12" Source="{mauiXHelpers:ResourceImage ResourceId=left-arrow-50.png}" />
+                </customControls:CustomFrame>
+            </Grid>
+
+            <!--  Row 3  -->
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+
+                <customControls:CustomButton
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Command="{Binding ToggleNumbersCommand}"
+                    FontSize="17"
+                    Style="{StaticResource KeyboardButtonStyle}"
+                    Text="{Binding Row3Button0String}" />
+
+                <customControls:CustomButton
+                    Grid.Column="3"
+                    Grid.ColumnSpan="5"
+                    Margin="5,0"
+                    BackgroundColor="#dfe3e2"
+                    Command="{Binding AppendSpaceToValueCommand}"
+                    Style="{StaticResource KeyboardButtonStyle}" />
+
+                <customControls:CustomButton
+                    Grid.Column="8"
+                    Grid.ColumnSpan="3"
+                    Command="{Binding ClearValueCommand}"
+                    FontSize="17"
+                    Style="{StaticResource KeyboardButtonStyle}"
+                    Text="Clear" />
+            </Grid>
+        </Grid>
+    </customControls:BaseInputControl.Content>
+</customControls:BaseInputControl>

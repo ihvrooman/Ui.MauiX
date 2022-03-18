@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:ContentViewWithSetPropertyMethod
+    x:Class="Ui.MauiX.CustomControls.CustomFrame"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    ControlTemplate="{StaticResource CustomFrameControlTemplate}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="CustomFrameControlTemplate">
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <BoxView
+                        x:Name="Border"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        IsVisible="{TemplateBinding BorderThickness,
+                                                    Converter={mauiXConverters:NumberToIsGreaterThanConverter},
+                                                    ConverterParameter=0}" />
+
+                    <BoxView
+                        x:Name="Background"
+                        Margin="{TemplateBinding BorderThickness,
+                                                 Converter={mauiXConverters:BorderThicknessToControlMarginConverter}}"
+                        CornerRadius="{TemplateBinding InternalCornerRadius}" />
+
+                    <ContentPresenter Margin="{TemplateBinding BorderThickness, Converter={mauiXConverters:BorderThicknessToControlMarginConverter}}" Padding="{TemplateBinding Padding}" />
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+</customControls:ContentViewWithSetPropertyMethod>

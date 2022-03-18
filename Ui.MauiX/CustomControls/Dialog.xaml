@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.Dialog"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXEnums="clr-namespace:Ui.MauiX.Enums"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:viewModels="clr-namespace:Ui.MauiX.CustomControls.ViewModels"
+    BackgroundColor="Transparent"
+    IsVisible="{Binding Path=BindingContext.DialogSettings.IsVisible, Source={x:Reference MainGrid}}"
+    mc:Ignorable="d">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="customControls:Separator">
+                <Setter Property="Color" Value="#f0f0f0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid
+            x:Name="MainGrid"
+            BackgroundColor="{Binding DialogSettings.BackgroundFadeColor}"
+            ColumnSpacing="0"
+            RowSpacing="0">
+            <Grid.BindingContext>
+                <viewModels:DialogViewModel />
+            </Grid.BindingContext>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="8*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <customControls:CustomFrame
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="{Binding DialogSettings.BackgroundColor}"
+                BorderThickness="0"
+                CornerRadius="{Binding DialogSettings.CornerRadius}">
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Title  -->
+                    <customControls:CustomFrame
+                        Grid.Row="0"
+                        Padding="0,0,0,20"
+                        BackgroundColor="{Binding DialogSettings.HeaderColor}"
+                        BorderThickness="0"
+                        CornerRadius="{Binding DialogSettings.CornerRadius, Converter={mauiXConverters:DialogCornerRadiusToHeaderCornerRadiusConverter}}">
+                        <StackLayout
+                            Margin="{Binding DialogSettings.Padding, Converter={mauiXConverters:DialogPaddingToMarginConverter}, ConverterParameter=top}"
+                            Orientation="Horizontal"
+                            Spacing="15">
+                            <Image
+                                HeightRequest="{Binding DialogSettings.IconSize}"
+                                IsVisible="{Binding DialogSettings.IconResourceId, Converter={mauiXConverters:TextToIsVisibleConverter}}"
+                                Source="{Binding DialogSettings.IconResourceId, Converter={mauiXConverters:ImageSourceFromStringConverter}}"
+                                WidthRequest="{Binding DialogSettings.IconSize}" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="{Binding DialogSettings.TitleFontSize}"
+                                Text="{Binding DialogSettings.Title}"
+                                TextColor="{Binding DialogSettings.TitleColor}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </customControls:CustomFrame>
+
+                    <customControls:Separator Grid.Row="1" Orientation="Horizontal" />
+
+                    <!--  Message  -->
+                    <ScrollView
+                        Grid.Row="2"
+                        Margin="{Binding DialogSettings.Padding, Converter={mauiXConverters:DialogPaddingToMarginConverter}, ConverterParameter=middlemargin}"
+                        Padding="{Binding DialogSettings.Padding, Converter={mauiXConverters:DialogPaddingToMarginConverter}, ConverterParameter=middlepadding}"
+                        BackgroundColor="{Binding DialogSettings.BackgroundColor}">
+                        <Label
+                            FontSize="{Binding DialogSettings.MessageFontsize}"
+                            LineBreakMode="WordWrap"
+                            Text="{Binding DialogSettings.Message}"
+                            VerticalTextAlignment="Center" />
+                    </ScrollView>
+
+                    <customControls:Separator
+                        Grid.Row="3"
+                        Margin="0,0,0,20"
+                        Orientation="Horizontal" />
+
+                    <!--  Buttons  -->
+                    <StackLayout
+                        Grid.Row="4"
+                        Margin="{Binding DialogSettings.Padding, Converter={mauiXConverters:DialogPaddingToMarginConverter}, ConverterParameter=bottom}"
+                        HorizontalOptions="End"
+                        Orientation="Horizontal">
+
+                        <customControls:CustomButton
+                            x:Name="AffirmativeButton"
+                            Command="{Binding SetDialogResultCommand}"
+                            CommandParameter="{x:Static mauiXEnums:DialogResult.Affirmative}"
+                            IsVisible="{Binding DialogSettings.ButtonStyle, Converter={mauiXConverters:DialogStyleToButtonIsVisibleConverter}, ConverterParameter={x:Static mauiXEnums:DialogResult.Affirmative}}"
+                            Style="{StaticResource SmallButtonStyle}"
+                            Text="{Binding DialogSettings.AffirmativeButtonText}" />
+
+                        <customControls:CustomButton
+                            x:Name="NegativeButton"
+                            Command="{Binding SetDialogResultCommand}"
+                            CommandParameter="{x:Static mauiXEnums:DialogResult.Negative}"
+                            IsVisible="{Binding DialogSettings.ButtonStyle, Converter={mauiXConverters:DialogStyleToButtonIsVisibleConverter}, ConverterParameter={x:Static mauiXEnums:DialogResult.Negative}}"
+                            Style="{StaticResource SmallButtonStyle}"
+                            Text="{Binding DialogSettings.NegativeButtonText}" />
+
+                        <customControls:CustomButton
+                            x:Name="FirstAuxiliaryButton"
+                            Command="{Binding SetDialogResultCommand}"
+                            CommandParameter="{x:Static mauiXEnums:DialogResult.FirstAuxiliary}"
+                            IsVisible="{Binding DialogSettings.ButtonStyle, Converter={mauiXConverters:DialogStyleToButtonIsVisibleConverter}, ConverterParameter={x:Static mauiXEnums:DialogResult.FirstAuxiliary}}"
+                            Style="{StaticResource SmallButtonStyle}"
+                            Text="{Binding DialogSettings.FirstAuxiliaryButtonText}" />
+
+                        <customControls:CustomButton
+                            x:Name="SecondAuxiliaryButton"
+                            Command="{Binding SetDialogResultCommand}"
+                            CommandParameter="{x:Static mauiXEnums:DialogResult.SecondAuxiliary}"
+                            IsVisible="{Binding DialogSettings.ButtonStyle, Converter={mauiXConverters:DialogStyleToButtonIsVisibleConverter}, ConverterParameter={x:Static mauiXEnums:DialogResult.SecondAuxiliary}}"
+                            Style="{StaticResource SmallButtonStyle}"
+                            Text="{Binding DialogSettings.SecondAuxiliaryButtonText}" />
+                    </StackLayout>
+                </Grid>
+            </customControls:CustomFrame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

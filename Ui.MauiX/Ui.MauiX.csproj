@@ -1,0 +1,210 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <Authors>Isaac Vrooman</Authors>
+    <Company></Company>
+    <Product />
+    <Description>Microsoft Maui-based User Interface components for use in cross-platform app development</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Source\Ui.mauix\Ui.MauiX\Ui.MauiX.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591;1574</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="TimeZoneConverter" Version="5.0.0" />
+    <PackageReference Include="TimeZoneNames" Version="5.0.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Components\Components.csproj" />
+    <ProjectReference Include="..\Ui.Icons\Ui.Icons.csproj" />
+    <ProjectReference Include="..\Ui\Ui.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CustomControls\CompletedWorkflowStepView.xaml.cs">
+      <DependentUpon>CompletedWorkflowStepView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\CustomLabel.xaml.cs">
+      <DependentUpon>CustomLabel.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\GraphWorkflowStepCell.xaml.cs">
+      <DependentUpon>GraphWorkflowStepCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\ManualEntryWorkflowStepCell.xaml.cs">
+      <DependentUpon>ManualEntryWorkflowStepCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\ScanWorkflowStepCell.xaml.cs">
+      <DependentUpon>ScanWorkflowStepCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\MultiAlphaNumericInputWorkflowStepCell.xaml.cs">
+      <DependentUpon>MultiAlphaNumericInputWorkflowStepCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\ValueView.xaml.cs">
+      <DependentUpon>ValueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\SelectionControl.xaml.cs">
+      <DependentUpon>SelectionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\DynamicWorkflow.xaml.cs">
+      <DependentUpon>DynamicWorkflow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\CustomMasterDetailPage.xaml.cs">
+      <DependentUpon>CustomMasterDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\KeyboardPopup.xaml.cs">
+      <DependentUpon>KeyboardPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\NumberPadPopup.xaml.cs">
+      <DependentUpon>NumberPadPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\UserInteractionWorkflowStepCell.xaml.cs">
+      <DependentUpon>UserInteractionWorkflowStepCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\WorkflowStepCell.xaml.cs">
+      <DependentUpon>WorkflowStepCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomControls\SelectionWorkflowStepCell.xaml.cs">
+      <DependentUpon>SelectionWorkflowStepCell.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CustomControls\ActivityIndicatorPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\BaseInputControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\Chat.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CircularProgressControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CompletedWorkflowStepView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CustomActivityIndicator.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CustomButton.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CustomContentView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CustomExpander.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CustomFrame.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CustomViewCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\ManualEntryWorkflowStepCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\SingleWorkflowStepView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\ValueView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\SelectionControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\Dialog.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\DialogPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\DynamicWorkflow.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\Graph.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\Header.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\ImageToggleButton.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\ItemsControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\KeyboardPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\Menu.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\MenuItem.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CustomMasterDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\NumberPadPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\PageNavigator.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\SelectionPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\Separator.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\Setter.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\TabView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\CustomLabel.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\ToggleSwitch.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\WorkflowMenu.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Style.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\GraphWorkflowStepCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\WorkflowStepCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\ScanWorkflowStepCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\SelectionWorkflowStepCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

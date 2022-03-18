@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:CustomContentView
+    x:Class="Ui.MauiX.Test.Views.DetailPage3"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX"
+    xmlns:mauiXModels="clr-namespace:Ui.MauiX.Models;assembly=Ui.MauiX"
+    xmlns:viewModels="clr-namespace:Ui.MauiX.Test.ViewModels"
+    BindingContext="{x:Static viewModels:BaseViewModel.CustomMasterDetailPageInstance}"
+    x:Name="this"
+    ControlTemplate="{StaticResource BasePageControlTemplate}">
+    <customControls:CustomContentView.CustomToolbarItems>
+        <mauiXModels:CustomToolbarItem
+            Command="{Binding Source={x:Reference this}, Path=BindingContext.ShowActivityIndicatorCommand}"
+            Order="Secondary"
+            IconImageResourceId="DeviceInfo.png"
+            Priority="1"
+            Text="Show Activity Indicator 2" />
+        <mauiXModels:CustomToolbarItem
+            Command="{Binding Source={x:Reference this}, Path=BindingContext.ShowActivityIndicatorCommand}"
+            Order="Secondary"
+            Priority="0"
+            IconImageResourceId="MenuTest.png"
+            Text="Show Activity Indicator" />
+        <mauiXModels:CustomToolbarItem
+            Command="{Binding Source={x:Reference this}, Path=BindingContext.ShowActivityIndicatorCommand}"
+            Order="Secondary"
+            Priority="2"
+            IconImageResourceId="DeviceInfo.png"
+            Text="Show Activity Indicator 3" />
+    </customControls:CustomContentView.CustomToolbarItems>
+    <ContentView.Content>
+        <Grid>
+            <Label FontSize="20" Text="This page only has submenu items with order set to Secondary (so they show up in the submenu popup)." />
+        </Grid>
+    </ContentView.Content>
+</customControls:CustomContentView>

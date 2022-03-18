@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.Test.Views.SetterSupplementalPageControls"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters;assembly=Ui.MauiX">
+    <ContentView.Content>
+        <StackLayout Spacing="15">
+            <customControls:Setter
+                InputMode="Toggle"
+                Label="Suffixes"
+                ToggleState="{Binding AreSuffixesVisible, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                ToggledValueText="Visible"
+                UntoggledValueText="Hidden" />
+            <customControls:Setter
+                InputMode="Toggle"
+                Label="Initial Value on Popups"
+                ToggleState="{Binding ShowInitialValueOnPopup, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                ToggledValueText="Visible"
+                UntoggledValueText="Hidden" />
+            <customControls:Setter
+                InputMode="Toggle"
+                Label="Are Read-Only"
+                ToggleState="{Binding IsReadOnly, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                ToggledValueText="True"
+                UntoggledValueText="False" />
+            <customControls:Setter
+                InputMode="Toggle"
+                Label="Current Item"
+                ToggleState="{Binding RemoveCurrentItemFromItemsSource, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                ToggledValueText="Remove from list"
+                UntoggledValueText="Keep" />
+            <customControls:Setter
+                InputMode="Toggle"
+                Label="Selection Popup Auto Close"
+                ToggleState="{Binding AutoCloseSelectionPopupOnItemSelection, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                ToggledValueText="Enabled"
+                UntoggledValueText="Disabled" />
+            <customControls:Setter
+                InputMode="Toggle"
+                Label="Is Value Required"
+                ToggleState="{Binding IsRequired, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                ToggledValueText="Yes"
+                UntoggledValueText="No" />
+            <customControls:Setter
+                InputMode="Selection"
+                ItemsSource="{Binding AvailableSelectionModes}"
+                Label="Selection Mode"
+                Value="{Binding SelectionMode}" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

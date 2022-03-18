@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:ContentViewWithSetPropertyMethod
+    x:Class="Ui.MauiX.CustomControls.SelectionControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXResources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:uiEnums="clr-namespace:Ui.Enums;assembly=Ui"
+    x:Name="this">
+    <customControls:ContentViewWithSetPropertyMethod.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <mauiXResources:Style />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </customControls:ContentViewWithSetPropertyMethod.Resources>
+    <ContentView.Content>
+        <customControls:ItemsControl
+            x:Name="ItemsControl"
+            BackgroundColor="{Binding Settings.BackgroundColor}"
+            BindingContext="{x:Reference this}"
+            ItemTemplate="{Binding ItemTemplate}"
+            ItemsSource="{Binding ItemsSource}"
+            Orientation="{Binding Settings.Orientation}"
+            Spacing="{Binding Settings.Spacing}" />
+    </ContentView.Content>
+</customControls:ContentViewWithSetPropertyMethod>

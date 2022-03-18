@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="Ui.MauiX.Resources.Style"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:uiEnums="clr-namespace:Ui.Enums;assembly=Ui">
+
+    <Color x:Key="TextColor">White</Color>
+    <Color x:Key="NavigationBK">#E7EFE1</Color>
+    <Color x:Key="FooterColor">#666666</Color>
+    <Color x:Key="WebSiteHighlightBlue">#4A90E2</Color>
+    <Color x:Key="Color1">#F3F3F3</Color>
+    <Color x:Key="Color2">#4A4A4A</Color>
+    <Color x:Key="LineColor">#FFF</Color>
+    <Color x:Key="Icon">#008990</Color>
+    <Color x:Key="GreyBackground">#EEEEEE</Color>
+    <Color x:Key="HeaderText">#4a4a4a</Color>
+
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="Arial"/>
+    </Style>
+
+    <Style x:Key="TransparentButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BorderColor" Value="Transparent" />
+    </Style>
+
+    <Style x:Key="DefaultButtonStyle" TargetType="customControls:CustomButton">
+        <Setter Property="BackgroundColor" Value="{Static resources:CustomColors.Blue}" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style
+        x:Key="NormalButtonStyle"
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="customControls:CustomButton">
+        <Setter Property="CornerRadius" Value="25" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="WidthRequest" Value="150" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style
+        x:Key="SmallButtonStyle"
+        BasedOn="{StaticResource NormalButtonStyle}"
+        TargetType="customControls:CustomButton">
+        <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="HeightRequest" Value="46" />
+        <Setter Property="CornerRadius" Value="23" />
+    </Style>
+
+    <Style
+        x:Key="LargeButtonStyle"
+        BasedOn="{StaticResource NormalButtonStyle}"
+        TargetType="customControls:CustomButton">
+        <Setter Property="WidthRequest" Value="250" />
+        <Setter Property="CornerRadius" Value="25" />
+        <Setter Property="HeightRequest" Value="50" />
+    </Style>
+
+    <Style x:Key="KeyboardAndNumberPadButtonStyle" TargetType="customControls:CustomButton">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="TextColor" Value="{Static resources:CustomColors.TextColor}" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="VerticalOptions" Value="Fill" />
+    </Style>
+
+    <ControlTemplate x:Key="CustomNavigationPageControlTemplate">
+        <Grid RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <BoxView
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BackgroundColor="White" />
+
+            <Image
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="5"
+                HeightRequest="{TemplateBinding BackButtonSize}"
+                Source="{mauiXHelpers:ResourceImage ResourceId=less-than-50-gray.png}"
+                WidthRequest="{TemplateBinding BackButtonSize}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{TemplateBinding NavigateBackCommand}" />
+                </Image.GestureRecognizers>
+                <Image.Triggers>
+                    <DataTrigger
+                        Binding="{TemplateBinding IsBackButtonEnabled}"
+                        TargetType="Image"
+                        Value="False">
+                        <Setter Property="Source" Value="{mauiXHelpers:ResourceImage ResourceId=less-than-50-lightgray.png}" />
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                FontSize="18"
+                IsVisible="{TemplateBinding Title,
+                                            Converter={mauiXConverters:TextToIsVisibleConverter}}"
+                Text="{TemplateBinding Title}"
+                VerticalTextAlignment="Center" />
+
+            <ContentView
+                Grid.Row="0"
+                Grid.Column="2"
+                BackgroundColor="White"
+                Content="{TemplateBinding SupplementalHeaderView}" />
+
+            <customControls:Separator
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BackgroundColor="White" />
+
+            <ContentPresenter
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BackgroundColor="{Static resources:CustomColors.BackgroundColor}" />
+
+            <customControls:CustomActivityIndicator
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="3"
+                ActivityIndicatorSettings="{TemplateBinding ActivityIndicatorSettings}" />
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="InputControlControlTemplate">
+        <Grid Padding="{TemplateBinding Padding}" BackgroundColor="{Static resources:CustomColors.BackgroundFadeColor}">
+            <customControls:CustomFrame
+                BackgroundColor="{Static resources:CustomColors.BackgroundColor}"
+                BorderThickness="0"
+                CornerRadius="{TemplateBinding CornerRadius}">
+                <Grid RowDefinitions="Auto, 70, Auto, *">
+                    <Grid Grid.Row="0" ColumnDefinitions="100, *, 100">
+                        <Grid.Resources>
+                            <ResourceDictionary>
+                                <Style x:Key="InputControlButtonStyle" TargetType="customControls:CustomButton">
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                    <Setter Property="DisabledBackgroundColor" Value="Transparent" />
+                                    <Setter Property="TextColor" Value="{Static resources:CustomColors.TextColor}" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                </Style>
+                            </ResourceDictionary>
+                        </Grid.Resources>
+                        <customControls:CustomButton
+                            Grid.Column="0"
+                            Command="{TemplateBinding DoneCommand}"
+                            Style="{StaticResource InputControlButtonStyle}"
+                            Text="Done" />
+                        <customControls:CustomButton
+                            Grid.Column="2"
+                            Command="{TemplateBinding CancelCommand}"
+                            Style="{StaticResource InputControlButtonStyle}"
+                            Text="Cancel" />
+                    </Grid>
+
+                    <customControls:CustomFrame Grid.Row="1" Padding="0,10">
+                        <customControls:CustomFrame.Triggers>
+                            <DataTrigger
+                                Binding="{TemplateBinding DataItem.IsValid}"
+                                TargetType="customControls:CustomFrame"
+                                Value="false">
+                                <Setter Property="BorderColor" Value="{Static resources:CustomColors.Red}" />
+                            </DataTrigger>
+                        </customControls:CustomFrame.Triggers>
+                        <customControls:ValueView />
+                    </customControls:CustomFrame>
+
+                    <Grid
+                        Grid.Row="2"
+                        Margin="10,0"
+                        HeightRequest="20"
+                        IsVisible="{TemplateBinding IsInvalidTipVisible}">
+                        <Label
+                            FontSize="10"
+                            IsVisible="{TemplateBinding DataItem.IsValid,
+                                                        Converter={mauiXConverters:InverseBooleanConverter}}"
+                            Text="{TemplateBinding DataItem.InvalidTip}"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <ContentPresenter Grid.Row="3" Margin="{TemplateBinding ContentMargin}" />
+                </Grid>
+            </customControls:CustomFrame>
+        </Grid>
+    </ControlTemplate>
+
+    <DataTemplate x:Key="SelectionControlRadioButtonDataTemplate">
+        <customControls:CustomViewCell IsEnabled="{Binding IsEnabled}" IsSelected="{Binding IsSelected}">
+            <StackLayout Orientation="Horizontal" Spacing="15">
+                <customControls:CustomFrame
+                    x:Name="RadioButton"
+                    Padding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonPadding}"
+                    BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.UnselectedItemColor}"
+                    BorderColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.SelectedItemColor}"
+                    BorderThickness="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonBorderThickness}"
+                    CornerRadius="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:DivideByTwoConverter}}"
+                    HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}"
+                    HorizontalOptions="Center"
+                    IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsEnabled}"
+                    VerticalOptions="Center"
+                    WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}">
+                    <customControls:CustomFrame.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonShape}"
+                            TargetType="customControls:CustomFrame"
+                            Value="{x:Static uiEnums:ButtonShape.Square}">
+                            <Setter Property="CornerRadius" Value="0" />
+                        </DataTrigger>
+                    </customControls:CustomFrame.Triggers>
+
+                    <customControls:BaseToggleControl
+                        BorderThickness="0"
+                        CornerRadius="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=InternalCornerRadius}"
+                        IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsEnabled}"
+                        State="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsSelected, Converter={mauiXConverters:BoolToToggleStateConverter}, Mode=OneWay}"
+                        ToggledColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.SelectedItemColor}"
+                        UntoggledColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.UnselectedItemColor}">
+                        <customControls:BaseToggleControl.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonShape}"
+                                TargetType="customControls:CustomFrame"
+                                Value="{x:Static uiEnums:ButtonShape.Square}">
+                                <Setter Property="CornerRadius" Value="0" />
+                            </DataTrigger>
+                        </customControls:BaseToggleControl.Triggers>
+                    </customControls:BaseToggleControl>
+                </customControls:CustomFrame>
+                <customControls:ToggleLabel
+                    FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.FontSize}"
+                    HorizontalTextAlignment="Center"
+                    IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsEnabled}"
+                    State="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsSelected, Converter={mauiXConverters:BoolToToggleStateConverter}, Mode=OneWay}"
+                    Text="{Binding Converter={mauiXConverters:SelectionControlTextConverter}}"
+                    ToggledTextColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.SelectedItemTextColor}"
+                    UntoggledTextColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.UnselectedItemTextColor}"
+                    VerticalTextAlignment="Center" />
+            </StackLayout>
+        </customControls:CustomViewCell>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SelectionControlImageToggleButtonDataTemplate">
+        <customControls:CustomViewCell IsEnabled="{Binding IsEnabled}" IsSelected="{Binding IsSelected}">
+            <StackLayout Orientation="Horizontal">
+                <customControls:ImageToggleButton
+                    Padding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonPadding}"
+                    BorderThickness="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonBorderThickness}"
+                    CornerRadius="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:DivideByTwoConverter}}"
+                    HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}"
+                    HorizontalOptions="Center"
+                    ImageMargin="0"
+                    ImageSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}"
+                    IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsEnabled}"
+                    State="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsSelected, Converter={mauiXConverters:BoolToToggleStateConverter}, Mode=OneWay}"
+                    ToggledColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.SelectedItemColor, Mode=OneWay}"
+                    ToggledImageResourceId="{Binding SelectedImageResourceId}"
+                    UntoggledColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.UnselectedItemColor, Mode=OneWay}"
+                    UntoggledImageResourceId="{Binding UnselectedImageResourceId}"
+                    VerticalOptions="Center"
+                    WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}">
+                    <customControls:ImageToggleButton.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonShape}"
+                            TargetType="customControls:ImageToggleButton"
+                            Value="{x:Static uiEnums:ButtonShape.Square}">
+                            <Setter Property="CornerRadius" Value="0" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonShape}"
+                            TargetType="customControls:CustomFrame"
+                            Value="{x:Static uiEnums:ButtonShape.Rectangular}">
+                            <Setter Property="CornerRadius" Value="0" />
+                            <Setter Property="WidthRequest" Value="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:MultiplicationConverter}, ConverterParameter=3}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonShape}"
+                            TargetType="customControls:CustomFrame"
+                            Value="{x:Static uiEnums:ButtonShape.Pill}">
+                            <Setter Property="WidthRequest" Value="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:MultiplicationConverter}, ConverterParameter=3}" />
+                        </DataTrigger>
+                    </customControls:ImageToggleButton.Triggers>
+                </customControls:ImageToggleButton>
+            </StackLayout>
+        </customControls:CustomViewCell>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SelectionControlButtonDataTemplate">
+        <customControls:CustomViewCell IsEnabled="{Binding IsEnabled}" IsSelected="{Binding IsSelected}">
+            <StackLayout Orientation="Horizontal">
+                <customControls:BaseToggleControl
+                    Padding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonPadding}"
+                    BorderColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.SelectedItemColor}"
+                    BorderThickness="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonBorderThickness}"
+                    CornerRadius="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:DivideByTwoConverter}}"
+                    HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}"
+                    HorizontalOptions="Center"
+                    IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsEnabled}"
+                    State="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsSelected, Converter={mauiXConverters:BoolToToggleStateConverter}, Mode=OneWay}"
+                    ToggledColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.SelectedItemColor}"
+                    UntoggledColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.UnselectedItemColor}"
+                    VerticalOptions="Center"
+                    WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}">
+                    <customControls:BaseToggleControl.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonShape}"
+                            TargetType="customControls:CustomFrame"
+                            Value="{x:Static uiEnums:ButtonShape.Square}">
+                            <Setter Property="CornerRadius" Value="0" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonShape}"
+                            TargetType="customControls:CustomFrame"
+                            Value="{x:Static uiEnums:ButtonShape.Rectangular}">
+                            <Setter Property="CornerRadius" Value="0" />
+                            <Setter Property="WidthRequest" Value="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:MultiplicationConverter}, ConverterParameter=3}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonShape}"
+                            TargetType="customControls:CustomFrame"
+                            Value="{x:Static uiEnums:ButtonShape.Pill}">
+                            <Setter Property="WidthRequest" Value="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:MultiplicationConverter}, ConverterParameter=3}" />
+                        </DataTrigger>
+                    </customControls:BaseToggleControl.Triggers>
+                    <customControls:ToggleLabel
+                        FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.FontSize}"
+                        HorizontalTextAlignment="Center"
+                        IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsEnabled}"
+                        State="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsSelected, Converter={mauiXConverters:BoolToToggleStateConverter}, Mode=OneWay}"
+                        Text="{Binding Converter={mauiXConverters:SelectionControlTextConverter}}"
+                        ToggledTextColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.SelectedItemTextColor}"
+                        UntoggledTextColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.UnselectedItemTextColor}"
+                        VerticalTextAlignment="Center" />
+                </customControls:BaseToggleControl>
+            </StackLayout>
+        </customControls:CustomViewCell>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SelectionControlColorDataTemplate">
+        <customControls:CustomViewCell IsEnabled="{Binding IsEnabled}" IsSelected="{Binding IsSelected}">
+            <customControls:CustomFrame
+                BackgroundColor="{Binding}"
+                BorderThickness="1"
+                CornerRadius="{Binding Source={RelativeSource Self}, Path=Height, Converter={mauiXConverters:DivideByTwoConverter}, ConverterParameter=forcePositive}"
+                HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}"
+                HorizontalOptions="Center"
+                WidthRequest="{Binding Source={RelativeSource Self}, Path=Height}">
+                <customControls:CustomFrame.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsSelected}"
+                        TargetType="customControls:CustomFrame"
+                        Value="True">
+                        <Setter Property="HeightRequest" Value="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:ScaleConverter}, ConverterParameter=2}" />
+                    </DataTrigger>
+                </customControls:CustomFrame.Triggers>
+            </customControls:CustomFrame>
+        </customControls:CustomViewCell>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SelectionControlIconDataTemplate">
+        <customControls:CustomViewCell IsEnabled="{Binding IsEnabled}" IsSelected="{Binding IsSelected}">
+            <Image
+                HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize}"
+                HorizontalOptions="Center"
+                Source="{Binding Converter={mauiXConverters:ImageSourceFromStringConverter}}"
+                WidthRequest="{Binding Source={RelativeSource Self}, Path=Height}">
+                <Image.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Source={RelativeSource AncestorType={x:Type customControls:CustomViewCell}}, Path=IsSelected}"
+                        TargetType="Image"
+                        Value="True">
+                        <Setter Property="HeightRequest" Value="{Binding Source={RelativeSource AncestorType={x:Type customControls:SelectionControl}}, Path=Settings.ButtonSize, Converter={mauiXConverters:ScaleConverter}, ConverterParameter=2}" />
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+        </customControls:CustomViewCell>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customControls:BaseInputControl
+    x:Class="Ui.MauiX.CustomControls.SelectionPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    x:Name="this"
+    ControlTemplate="{StaticResource InputControlControlTemplate}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="{Binding Settings.BackgroundColor}" BindingContext="{x:Reference this}">
+            <customControls:SelectionControl
+                x:Name="SelectionControl"
+                Grid.Row="2"
+                Padding="10,0,0,0"
+                ItemTemplate="{Binding SelectionItemTemplate}"
+                ItemsSource="{Binding ItemsSource}"
+                SelectedItemsChanged="SelectionControl_SelectedItemsChanged"
+                Settings="{Binding Settings}" />
+        </ScrollView>
+    </ContentPage.Content>
+</customControls:BaseInputControl>

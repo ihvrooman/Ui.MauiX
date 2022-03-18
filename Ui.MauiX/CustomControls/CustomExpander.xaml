@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:CustomFrame
+    x:Class="Ui.MauiX.CustomControls.CustomExpander"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    x:Name="this"
+    ControlTemplate="{StaticResource CustomExpanderControlTemplate}">
+    <customControls:CustomFrame.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="CustomExpanderControlTemplate">
+                <customControls:CustomFrame
+                    BackgroundColor="{TemplateBinding BackgroundColor}"
+                    BorderColor="{TemplateBinding BorderColor}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    IsEnabled="{TemplateBinding IsEnabled}">
+                    <StackLayout Spacing="0">
+                        <Grid ColumnSpacing="0" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!--  Header  -->
+                            <Grid
+                                x:Name="Header"
+                                Grid.Row="0"
+                                Margin="{TemplateBinding IsExpanded,
+                                                         Converter={mauiXConverters:ExpanderIsExpandedToHeaderMarginConverter}}"
+                                BackgroundColor="{TemplateBinding HeaderBackgroundColor}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{TemplateBinding ToggleIsExpandedCommand}" />
+                                </Grid.GestureRecognizers>
+
+                                <Image
+                                    Grid.Column="0"
+                                    Margin="10,0"
+                                    HeightRequest="{TemplateBinding ArrowIconSize}"
+                                    HorizontalOptions="Start"
+                                    Source="{mauiXHelpers:ResourceImage ResourceId=down-arrow-50-gray.png}"
+                                    VerticalOptions="Center"
+                                    WidthRequest="{TemplateBinding ArrowIconSize}">
+                                    <Image.Triggers>
+                                        <DataTrigger
+                                            Binding="{TemplateBinding IsExpanded}"
+                                            TargetType="Image"
+                                            Value="True">
+                                            <Setter Property="Source" Value="{mauiXHelpers:ResourceImage ResourceId=up-arrow-50-gray.png}" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+
+                                <ContentView
+                                    Grid.Column="1"
+                                    BackgroundColor="{TemplateBinding HeaderBackgroundColor}"
+                                    BindingContext="{Binding Path=BindingContext, Source={RelativeSource TemplatedParent}}"
+                                    Content="{TemplateBinding Header}" />
+                            </Grid>
+
+                            <ContentPresenter Grid.Row="1" IsVisible="{TemplateBinding IsExpanded}" />
+                        </Grid>
+                    </StackLayout>
+                </customControls:CustomFrame>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </customControls:CustomFrame.Resources>
+</customControls:CustomFrame>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.Chat"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    x:Name="this">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="NonUserMessageDataTemplate">
+                <Grid ColumnDefinitions="2*, *">
+                    <customControls:CustomFrame
+                        Grid.Column="0"
+                        Padding="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.MessagePadding}"
+                        BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.NonUserMessageColor}"
+                        BorderThickness="0"
+                        CornerRadius="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.MessageCornerRadius}"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start">
+                        <Label
+                            VerticalOptions="Center"
+                            FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.MessageFontSize}"
+                            Text="{Binding Message}"
+                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.NonUserMessageTextColor}" />
+                    </customControls:CustomFrame>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UserMessageDataTemplate">
+                <Grid ColumnDefinitions="*, 2*">
+                    <customControls:CustomFrame
+                        Grid.Column="1"
+                        Padding="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.MessagePadding}"
+                        BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.UserMessageColor}"
+                        BorderThickness="0"
+                        CornerRadius="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.MessageCornerRadius}"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start">
+                        <Label
+                            VerticalOptions="Center"
+                            FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.MessageFontSize}"
+                            Text="{Binding Message}"
+                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type customControls:Chat}}, Path=Settings.UserMessageTextColor}" />
+                    </customControls:CustomFrame>
+                </Grid>
+            </DataTemplate>
+
+            <mauiXHelpers:ChatMessageTypeTemplateSelector
+                x:Key="ChatMessageTypeTemplateSelector"
+                NonUserMessageDataTemplate="{StaticResource NonUserMessageDataTemplate}"
+                UserMessageDataTemplate="{StaticResource UserMessageDataTemplate}" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <customControls:ItemsControl
+            Padding="{Binding Settings.Padding}"
+            BackgroundColor="{Binding Settings.BackgroundColor}"
+            BindingContext="{x:Reference this}"
+            ItemTemplateSelector="{StaticResource ChatMessageTypeTemplateSelector}"
+            ItemsSource="{Binding Messages}"
+            Spacing="{Binding Settings.MessageSpacing}" />
+    </ContentView.Content>
+</ContentView>

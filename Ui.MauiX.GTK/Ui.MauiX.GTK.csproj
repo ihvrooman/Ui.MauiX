@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <Authors>Isaac Vrooman</Authors>
+    <Company></Company>
+    <Description>Microsoft Maui-based User Interface components for use in GTK app development</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+    <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="5.0.0.2337" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="atk-sharp">
+      <HintPath>GTKDependencies\atk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gdk-sharp">
+      <HintPath>GTKDependencies\gdk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="glade-sharp">
+      <HintPath>GTKDependencies\glade-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="glib-sharp">
+      <HintPath>GTKDependencies\glib-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gtk-dotnet">
+      <HintPath>GTKDependencies\gtk-dotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="gtk-sharp">
+      <HintPath>GTKDependencies\gtk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="pango-sharp">
+      <HintPath>GTKDependencies\pango-sharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

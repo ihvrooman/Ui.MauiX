@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customControls:BaseCustomNavigationPage
+    x:Class="Ui.MauiX.Test.Views.SetterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters;assembly=Ui.MauiX"
+    xmlns:viewModels="clr-namespace:Ui.MauiX.Test.ViewModels"
+    xmlns:views="clr-namespace:Ui.MauiX.Test.Views"
+    Title="Setter"
+    ControlTemplate="{StaticResource CustomNavigationPageControlTemplate}"
+    IsBackButtonEnabled="{Binding IsEnabled}">
+    <customControls:BaseCustomNavigationPage.BindingContext>
+        <viewModels:SetterViewModel />
+    </customControls:BaseCustomNavigationPage.BindingContext>
+    <customControls:BaseCustomNavigationPage.Content>
+        <Grid Margin="20,20,0,20" ColumnDefinitions="*, Auto">
+            <ScrollView Grid.Column="0">
+                <StackLayout Spacing="0">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style x:Key="Style0" TargetType="customControls:Setter">
+                                <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+                                <Setter Property="ValueSuffix" Value="°C" />
+                            </Style>
+
+                            <Style
+                                x:Key="Style1"
+                                BasedOn="{StaticResource Style0}"
+                                TargetType="customControls:Setter">
+                                <Setter Property="BackgroundColor" Value="{Binding BackgroundColor}" />
+                                <Setter Property="DisabledBackgroundColor" Value="{Binding DisabledBackgroundColor}" />
+                                <Setter Property="BorderColor" Value="{Binding BorderColor}" />
+                                <Setter Property="DisabledBorderColor" Value="{Binding DisabledBorderColor}" />
+                                <Setter Property="BorderThickness" Value="{Binding BorderThickness}" />
+                                <Setter Property="TextColor" Value="{Binding TextColor}" />
+                                <Setter Property="RemoveCurrentItemFromItemsSource" Value="{Binding RemoveCurrentItemFromItemsSource}" />
+                                <Setter Property="IsRequired" Value="{Binding IsRequired}" />
+                                <Setter Property="ShowInitialValueOnPopup" Value="{Binding ShowInitialValueOnPopup}" />
+                                <Setter Property="IsReadOnly" Value="{Binding IsReadOnly}"/>
+                                <Setter Property="DisabledTextColor" Value="{Binding DisabledTextColor}" />
+                                <Setter Property="FontSize" Value="{Binding FontSize}" />
+                                <Setter Property="IconSize" Value="{Binding IconSize}" />
+                                <Setter Property="SelectionMode" Value="{Binding SelectionMode}" />
+                                <Setter Property="AutoCloseSelectionPopupOnItemSelected" Value="{Binding AutoCloseSelectionPopupOnItemSelected}" />
+                                <Setter Property="IconResourceId" Value="{x:Null}" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding AreIconsVisible}"
+                                        TargetType="customControls:Setter"
+                                        Value="true">
+                                        <Setter Property="IconResourceId" Value="{Binding IconResourceId}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding AreSuffixesVisible}"
+                                        TargetType="customControls:Setter"
+                                        Value="false">
+                                        <Setter Property="ValueSuffix" Value="" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+
+                    <customControls:Setter
+                        IconResourceId="DeviceInfo.png"
+                        InputMode="Numeric"
+                        Label="Default Style"
+                        Max="50"
+                        MaxNumberOfDecimalPlaces="3"
+                        Min="-50"
+                        MinNumberOfDecimalPlaces="2"
+                        Style="{StaticResource Style0}"
+                        Value="22.4" />
+
+                    <customControls:Setter
+                        Margin="0,10,0,0"
+                        InputMode="Numeric"
+                        Label="Numeric"
+                        Style="{StaticResource Style1}" />
+                    <customControls:Setter DataItem="{Binding DoubleDataItem}" Style="{StaticResource Style0}" />
+
+                    <customControls:Setter
+                        Margin="0,10,0,0"
+                        InputMode="AlphaNumberic"
+                        Label="AlphaNumeric"
+                        Style="{StaticResource Style1}" />
+                    <customControls:Setter DataItem="{Binding StringDataItem}" Style="{StaticResource Style0}" />
+
+                    <customControls:Setter
+                        Margin="0,10,0,0"
+                        InputMode="Toggle"
+                        Label="Toggle Setter"
+                        Style="{StaticResource Style1}"
+                        ToggledValueText="{Binding ToggledText}"
+                        UntoggledValueText="{Binding UntoggledText}" />
+                    <customControls:Setter DataItem="{Binding BooleanDataItem}" Style="{StaticResource Style0}" />
+
+                    <customControls:Setter
+                        Margin="0,10,0,0"
+                        InputMode="Selection"
+                        ItemsSource="{Binding Items}"
+                        Label="Selection"
+                        Style="{StaticResource Style1}" />
+                    <customControls:Setter DataItem="{Binding EnumDataItem}" Style="{StaticResource Style0}" />
+                </StackLayout>
+            </ScrollView>
+
+            <views:PageControlsView Grid.Column="1" />
+        </Grid>
+    </customControls:BaseCustomNavigationPage.Content>
+</customControls:BaseCustomNavigationPage>

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.SelectionWorkflowStepCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXEnums="clr-namespace:Ui.MauiX.Enums"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    x:Name="this"
+    BackgroundColor="White"
+    mc:Ignorable="d">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid Padding="10" RowSpacing="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <customControls:CompletedWorkflowStepView Grid.Row="0" Grid.RowSpan="3" />
+
+            <StackLayout
+                Grid.Row="0"
+                IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}"
+                Spacing="10">
+                <Label
+                    Margin="15,0"
+                    FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MediumFontSize}"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding Description}"
+                    VerticalOptions="Start" />
+
+                <customControls:SelectionControl
+                    x:Name="itemsList"
+                    BackgroundColor="{Binding Source={x:Reference this}, Path=BackgroundColor}"
+                    HorizontalOptions="Center"
+                    ItemTemplate="{StaticResource SelectionControlRadioButtonDataTemplate}"
+                    ItemsSource="{Binding Selections}"
+                    Settings="{Binding Settings}">
+                    <customControls:SelectionControl.Triggers>
+                        <DataTrigger
+                            Binding="{Binding SelectionWorkflowStyle}"
+                            TargetType="customControls:SelectionControl"
+                            Value="{x:Static mauiXEnums:SelectionWorkflowStyle.StandardButton}">
+                            <Setter Property="ItemTemplate" Value="{StaticResource SelectionControlButtonDataTemplate}" />
+                        </DataTrigger>
+                    </customControls:SelectionControl.Triggers>
+                </customControls:SelectionControl>
+            </StackLayout>
+
+            <Grid Grid.Row="1" IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}">
+                <customControls:CustomButton
+                    x:Name="ConfirmButton"
+                    BackgroundColor="Green"
+                    BorderThickness="0"
+                    Clicked="ConfirmButton_Clicked"
+                    CornerRadius="20"
+                    FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=SmallFontSize}"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    IsEnabled="{Binding SelectedItem, Converter={mauiXConverters:ObjectToIsNullConverter}, ConverterParameter=invert}"
+                    IsVisible="{Binding RequireSelectionConfirmation}"
+                    Text="Confirm"
+                    TextColor="White"
+                    WidthRequest="150" />
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

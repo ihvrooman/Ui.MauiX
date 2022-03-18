@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:BaseInputControl
+    x:Class="Ui.MauiX.CustomControls.NumberPadPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:viewModels="clr-namespace:Ui.MauiX.CustomControls.ViewModels"
+    x:Name="this"
+    ControlTemplate="{StaticResource InputControlControlTemplate}"
+    mc:Ignorable="d">
+    <customControls:BaseInputControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="10" />
+                <Setter Property="RowSpacing" Value="10" />
+            </Style>
+            <Style
+                x:Key="NumberPadButtonStyle"
+                BasedOn="{StaticResource KeyboardAndNumberPadButtonStyle}"
+                TargetType="customControls:CustomButton">
+                <Setter Property="CornerRadius" Value="7" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+            <Style x:Key="NumberPadImageButtonStyle" TargetType="customControls:CustomFrame">
+                <Setter Property="CornerRadius" Value="7" />
+            </Style>
+            <Style
+                x:Key="InputButtonStyle"
+                BasedOn="{StaticResource NumberPadButtonStyle}"
+                TargetType="customControls:CustomButton">
+                <Setter Property="Command" Value="{Binding AppendToValueCommand}" />
+                <Setter Property="CommandParameter" Value="{Binding Source={RelativeSource Self}, Path=Text}" />
+            </Style>
+        </ResourceDictionary>
+    </customControls:BaseInputControl.Resources>
+
+    <customControls:BaseInputControl.Content>
+        <Grid BindingContext="{x:Reference this}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  Row  -->
+            <customControls:CustomButton
+                Grid.Row="0"
+                Grid.Column="0"
+                Style="{StaticResource InputButtonStyle}"
+                Text="7" />
+            <customControls:CustomButton
+                Grid.Row="0"
+                Grid.Column="1"
+                Style="{StaticResource InputButtonStyle}"
+                Text="8" />
+            <customControls:CustomButton
+                Grid.Row="0"
+                Grid.Column="2"
+                Style="{StaticResource InputButtonStyle}"
+                Text="9" />
+            <customControls:CustomButton
+                Grid.Row="0"
+                Grid.Column="3"
+                Command="{Binding ClearValueCommand}"
+                FontSize="16"
+                Style="{StaticResource InputButtonStyle}"
+                Text="Clear" />
+
+            <!--  Row  -->
+            <customControls:CustomButton
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource InputButtonStyle}"
+                Text="4" />
+            <customControls:CustomButton
+                Grid.Row="1"
+                Grid.Column="1"
+                Style="{StaticResource InputButtonStyle}"
+                Text="5" />
+            <customControls:CustomButton
+                Grid.Row="1"
+                Grid.Column="2"
+                Style="{StaticResource InputButtonStyle}"
+                Text="6" />
+            <customControls:CustomFrame
+                Grid.Row="1"
+                Grid.Column="3"
+                Style="{StaticResource NumberPadImageButtonStyle}">
+                <customControls:CustomFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DeleteCharacterCommand}" />
+                </customControls:CustomFrame.GestureRecognizers>
+                <Image Margin="15,12" Source="{mauiXHelpers:ResourceImage ResourceId=left-arrow-50.png}" />
+            </customControls:CustomFrame>
+
+            <!--  Row  -->
+            <customControls:CustomButton
+                Grid.Row="2"
+                Grid.Column="0"
+                Style="{StaticResource InputButtonStyle}"
+                Text="1" />
+            <customControls:CustomButton
+                Grid.Row="2"
+                Grid.Column="1"
+                Style="{StaticResource InputButtonStyle}"
+                Text="2" />
+            <customControls:CustomButton
+                Grid.Row="2"
+                Grid.Column="2"
+                Style="{StaticResource InputButtonStyle}"
+                Text="3" />
+            <customControls:CustomFrame
+                Grid.Row="2"
+                Grid.Column="3"
+                Style="{StaticResource NumberPadImageButtonStyle}">
+                <customControls:CustomFrame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="PlusMinusButton_Tapped" />
+                </customControls:CustomFrame.GestureRecognizers>
+                <Image Margin="12" Source="{mauiXHelpers:ResourceImage ResourceId=plus-minus-50.png}" />
+            </customControls:CustomFrame>
+
+            <!--  Row  -->
+            <customControls:CustomButton
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource InputButtonStyle}"
+                Text="0" />
+            <customControls:CustomButton
+                Grid.Row="3"
+                Grid.Column="3"
+                FontSize="22"
+                Style="{StaticResource InputButtonStyle}"
+                Text="." />
+        </Grid>
+    </customControls:BaseInputControl.Content>
+</customControls:BaseInputControl>

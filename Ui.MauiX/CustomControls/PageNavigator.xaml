@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:CustomFrame
+    x:Class="Ui.MauiX.CustomControls.PageNavigator"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    x:Name="this">
+    <customControls:CustomFrame.GestureRecognizers>
+        <TapGestureRecognizer Tapped="PageNavigator_Tapped" />
+    </customControls:CustomFrame.GestureRecognizers>
+    <customControls:CustomFrame.Content>
+        <Grid
+            BindingContext="{x:Reference this}"
+            ColumnSpacing="0"
+            HeightRequest="{Binding HeightRequest}"
+            RowSpacing="0">
+            <StackLayout
+                Padding="10"
+                Orientation="Horizontal"
+                Spacing="0"
+                VerticalOptions="Center">
+                <Image
+                    Margin="5,0"
+                    HeightRequest="{Binding IconSize}"
+                    HorizontalOptions="Start"
+                    IsEnabled="{Binding IsEnabled}"
+                    IsVisible="{Binding IconResourceId, Converter={mauiXConverters:TextToIsVisibleConverter}}"
+                    Source="{Binding IconResourceId, Converter={mauiXConverters:ImageSourceFromStringConverter}}"
+                    VerticalOptions="Center"
+                    WidthRequest="{Binding IconSize}" />
+                <customControls:CustomLabel
+                    Margin="10,0"
+                    HorizontalOptions="StartAndExpand"
+                    Text="{Binding Label}"
+                    VerticalOptions="Center" />
+                <customControls:CustomLabel
+                    Margin="0,0,10,0"
+                    HorizontalOptions="End"
+                    Text="{Binding Preview}"
+                    VerticalOptions="Center" />
+                <Image
+                    HeightRequest="25"
+                    Source="{mauiXHelpers:ResourceImage ResourceId=more-than-50-gray.png}"
+                    WidthRequest="25" />
+            </StackLayout>
+        </Grid>
+    </customControls:CustomFrame.Content>
+</customControls:CustomFrame>

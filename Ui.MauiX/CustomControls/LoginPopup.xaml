@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customControls:ContentPageWithSetPropertyMethod
+    x:Class="Ui.MauiX.CustomControls.LoginPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:Ui.MauiX.Behaviors"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters;assembly=Ui.MauiX"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers;assembly=Ui.MauiX"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    x:Name="this"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            BindingContext="{x:Reference this}"
+            ColumnSpacing="0"
+            RowSpacing="0">
+
+            <!--  Entry for capturing RFID input  -->
+            <Entry
+                x:Name="RFIDEntry"
+                BackgroundColor="Transparent"
+                IsPassword="True"
+                IsVisible="False"
+                Text="{Binding RFID}"
+                TextColor="Transparent">
+                <Entry.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="UWP" Value="True" />
+                    </OnPlatform>
+                </Entry.IsVisible>
+                <Entry.Behaviors>
+                    <behaviors:CompleteCommandBehavior Command="{Binding RFIDLoginCommand, Source={x:Reference this}}" />
+                </Entry.Behaviors>
+            </Entry>
+
+            <!--
+                White grid that covers entry (so that blinking entry
+                cursor isn't visible to user).
+                This grid also contains all other elements of the popup.
+            -->
+            <Grid
+                Padding="50"
+                BackgroundColor="white"
+                ColumnSpacing="0"
+                RowSpacing="0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CoverGrid_Tapped" />
+                </Grid.GestureRecognizers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <!--  Grid containing title and toggle button  -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{Binding LoginPopupSettings.TitleFontSize}"
+                        HorizontalOptions="Start"
+                        Text="Login"
+                        VerticalTextAlignment="Center" />
+
+                    <customControls:ImageToggleButton
+                        Grid.Column="2"
+                        HorizontalOptions="End"
+                        ImageSize="{Binding LoginPopupSettings.ToggleLoginModeIconSize}"
+                        State="{Binding IsRFIDLogin, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                        ToggledImageResourceId="password-window-50.png"
+                        UntoggledImageResourceId="LoginBadge.png"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <customControls:Separator
+                    Grid.Row="1"
+                    Margin="0,10"
+                    VerticalOptions="Start" />
+
+                <!--  RFID icon  -->
+                <Image
+                    Grid.Row="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsRFIDLogin}"
+                    Source="{mauiXHelpers:ResourceImage ResourceId=LoginBadge.png}"
+                    VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding QuickLoginCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <!--  Username/password login elements  -->
+                <Grid
+                    Grid.Row="2"
+                    ColumnSpacing="0"
+                    IsVisible="{Binding IsRFIDLogin, Converter={mauiXConverters:InverseBooleanConverter}}"
+                    VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="8*" />
+                    </Grid.ColumnDefinitions>
+
+                    <BoxView
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        BackgroundColor="#008990"
+                        HeightRequest="{Binding LoginPopupSettings.UsernamePasswordSectionHeight}" />
+                    <BoxView
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        BackgroundColor="#008990"
+                        HeightRequest="{Binding LoginPopupSettings.UsernamePasswordSectionHeight}" />
+
+                    <customControls:CustomFrame
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        BackgroundColor="#EEEEEE"
+                        BorderThickness="0"
+                        HeightRequest="{Binding LoginPopupSettings.UsernamePasswordSectionHeight}">
+                        <customControls:CustomFrame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="EnterUsername" />
+                        </customControls:CustomFrame.GestureRecognizers>
+                        <Grid
+                            Margin="10,0"
+                            ColumnSpacing="0"
+                            RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Label
+                                Grid.Row="0"
+                                FontSize="{Binding LoginPopupSettings.UsernamePasswordSectionHeaderFontSize}"
+                                Text="Username" />
+
+                            <!--
+                                Label used to display username entered by
+                                user when using keyboard popups
+                            -->
+                            <Label
+                                Grid.Row="1"
+                                FontSize="{Binding LoginPopupSettings.UsernamePasswordFontSize}"
+                                IsVisible="{Binding UseKeyboardPopups}"
+                                Text="{Binding Username}" />
+
+                            <!--
+                                Entry used to enter username when not using
+                                keyboard popups
+                            -->
+                            <Entry
+                                Grid.Row="1"
+                                BackgroundColor="#EEEEEE"
+                                FontSize="{Binding LoginPopupSettings.UsernamePasswordFontSize}"
+                                HorizontalTextAlignment="Start"
+                                IsVisible="{Binding UseKeyboardPopups, Converter={mauiXConverters:InverseBooleanConverter}}"
+                                Text="{Binding Username}" />
+                        </Grid>
+                    </customControls:CustomFrame>
+
+                    <customControls:CustomFrame
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        BackgroundColor="#EEEEEE"
+                        BorderThickness="0"
+                        HeightRequest="{Binding LoginPopupSettings.UsernamePasswordSectionHeight}">
+                        <customControls:CustomFrame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="EnterPassword" />
+                        </customControls:CustomFrame.GestureRecognizers>
+                        <Grid
+                            Margin="10,0"
+                            ColumnSpacing="0"
+                            RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Label
+                                Grid.Row="0"
+                                FontSize="{Binding LoginPopupSettings.UsernamePasswordSectionHeaderFontSize}"
+                                Text="Password" />
+
+                            <!--
+                                Label used to display password entered by
+                                user when using keyboard popups
+                            -->
+                            <Label
+                                Grid.Row="1"
+                                FontSize="{Binding LoginPopupSettings.UsernamePasswordFontSize}"
+                                IsVisible="{Binding UseKeyboardPopups}"
+                                Text="{Binding StarPassword}" />
+
+                            <!--
+                                Entry used to enter password when not using
+                                keyboard popups
+                            -->
+                            <Entry
+                                Grid.Row="1"
+                                BackgroundColor="#EEEEEE"
+                                FontSize="{Binding LoginPopupSettings.UsernamePasswordFontSize}"
+                                HorizontalTextAlignment="Start"
+                                IsPassword="True"
+                                IsVisible="{Binding UseKeyboardPopups, Converter={mauiXConverters:InverseBooleanConverter}}"
+                                Text="{Binding StarPassword}" />
+                        </Grid>
+                    </customControls:CustomFrame>
+
+                    <!--  Login with username/password button  -->
+                    <customControls:CustomButton
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,10,0,0"
+                        BackgroundColor="{Static resources:CustomColors.Green}"
+                        Command="{Binding UsernamePasswordLoginCommand}"
+                        Style="{StaticResource NormalButtonStyle}"
+                        Text="Login" />
+                </Grid>
+            </Grid>
+
+
+            <customControls:CustomActivityIndicator ActivityIndicatorSettings="{Binding LoginPopupSettings.ActivityIndicatorSettings}" />
+        </Grid>
+    </ContentPage.Content>
+</customControls:ContentPageWithSetPropertyMethod>

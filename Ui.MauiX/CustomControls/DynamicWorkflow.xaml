@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.DynamicWorkflow"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    x:Name="this">
+    <ContentView.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="WorkflowStepDataTemplate">
+                <StackLayout Spacing="0">
+                    <customControls:Separator Orientation="Horizontal" />
+                    <customControls:WorkflowStepCell BindingContext="{Binding}" />
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UserInteractionWorkflowStepDataTemplate">
+                <StackLayout Spacing="0">
+                    <customControls:Separator Orientation="Horizontal" />
+                    <customControls:UserInteractionWorkflowStepCell BindingContext="{Binding}" />
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ScanStepDataTemplate">
+                <StackLayout Spacing="0">
+                    <customControls:Separator Orientation="Horizontal" />
+                    <customControls:ScanWorkflowStepCell BindingContext="{Binding}" />
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="GraphStepDataTemplate">
+                <StackLayout Spacing="0">
+                    <customControls:Separator Orientation="Horizontal" />
+                    <customControls:GraphWorkflowStepCell BindingContext="{Binding}" />
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SelectionStepDataTemplate">
+                <StackLayout Spacing="0">
+                    <customControls:Separator Orientation="Horizontal" />
+                    <customControls:SelectionWorkflowStepCell BindingContext="{Binding}" />
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MultiAlphaNumericInputDataTemplate">
+                <StackLayout Spacing="0">
+                    <customControls:Separator Orientation="Horizontal" />
+                    <customControls:MultiAlphaNumericInputWorkflowStepCell BindingContext="{Binding}" />
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ManualEntryDataTemplate">
+                <StackLayout Spacing="0">
+                    <customControls:Separator Orientation="Horizontal" />
+                    <customControls:ManualEntryWorkflowStepCell BindingContext="{Binding}" />
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ExpanderSummaryDataTemplate">
+                <customControls:CustomExpander
+                    BorderThickness="2"
+                    HeaderBackgroundColor="LightYellow"
+                    IsExpanded="True">
+                    <customControls:CustomExpander.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}"
+                            TargetType="customControls:CustomExpander"
+                            Value="False">
+                            <Setter Property="HeaderBackgroundColor" Value="White" />
+                        </DataTrigger>
+                    </customControls:CustomExpander.Triggers>
+                    <customControls:CustomExpander.Header>
+                        <Grid
+                            Padding="10"
+                            ColumnSpacing="15"
+                            HeightRequest="70">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Image
+                                Grid.Column="0"
+                                Source="{Binding IconResourceId, Converter={mauiXConverters:ImageSourceFromStringConverter}}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MediumFontSize}"
+                                Text="{Binding Name}"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+                    </customControls:CustomExpander.Header>
+                    <customControls:ItemsControl ItemTemplateSelector="{StaticResource StepTypeSelector}" ItemsSource="{Binding SubSteps}" />
+                </customControls:CustomExpander>
+            </DataTemplate>
+
+            <DataTemplate x:Key="HeaderSummaryDataTemplate">
+                <StackLayout Spacing="0">
+                    <StackLayout
+                        BackgroundColor="Black"
+                        IsVisible="{Binding IsCompleted}"
+                        Orientation="Horizontal">
+                        <Image
+                            Margin="5"
+                            HorizontalOptions="Start"
+                            Scale="0.75"
+                            Source="{mauiXHelpers:ResourceImage ResourceId=checkmark-30.png}"
+                            VerticalOptions="Center" />
+                        <Label
+                            FontSize="14"
+                            Text="{Binding Name}"
+                            TextColor="White"
+                            VerticalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <customControls:ItemsControl ItemTemplateSelector="{StaticResource StepTypeSelector}" ItemsSource="{Binding SubSteps}" />
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MenuSummaryDataTemplate">
+                <customControls:WorkflowMenu BindingContext="{Binding}" />
+            </DataTemplate>
+
+            <mauiXHelpers:WorkflowStepTypeTemplateSelector
+                x:Key="StepTypeSelector"
+                ExpanderSummaryTemplate="{StaticResource ExpanderSummaryDataTemplate}"
+                GraphTemplate="{StaticResource GraphStepDataTemplate}"
+                HeaderSummaryTemplate="{StaticResource HeaderSummaryDataTemplate}"
+                ManualEntryTemplate="{StaticResource ManualEntryDataTemplate}"
+                MenuSummaryTemplate="{StaticResource MenuSummaryDataTemplate}"
+                MultiAlphaNumericInputTemplate="{StaticResource MultiAlphaNumericInputDataTemplate}"
+                ScanTemplate="{StaticResource ScanStepDataTemplate}"
+                SelectionTemplate="{StaticResource SelectionStepDataTemplate}"
+                UserInteractionTemplate="{StaticResource UserInteractionWorkflowStepDataTemplate}"
+                WorkflowStepTemplate="{StaticResource WorkflowStepDataTemplate}" />
+
+            <DataTemplate x:Key="ChatWorkflowDataTemplate">
+                <Grid RowDefinitions="*, Auto, Auto" RowSpacing="0">
+                    <ScrollView BackgroundColor="{Binding Source={x:Reference this}, Path=BackgroundColor}">
+                        <customControls:Chat Grid.Row="0" Messages="{Binding Source={x:Reference WorkflowView}, Path=BindingContext.Messages}" />
+                    </ScrollView>
+
+                    <customControls:Separator Grid.Row="1" Orientation="Horizontal" />
+
+                    <customControls:SingleWorkflowStepView
+                        Grid.Row="2"
+                        HeightRequest="{Binding Source={x:Reference WorkflowView}, Path=BindingContext.CurrentStepViewHeight}"
+                        WorkflowStep="{Binding Source={x:Reference WorkflowView}, Path=BindingContext.CurrentStep}" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MenuWorkflowDataTemplate">
+                <customControls:ItemsControl
+                    x:Name="MainItemsControl"
+                    ItemTemplateSelector="{StaticResource StepTypeSelector}"
+                    ItemsSource="{Binding Steps}"
+                    Spacing="10" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ProcessWorkflowDataTemplate">
+                <!--  Old template for pinning current sub step to bottom  -->
+
+                <!--<Grid RowDefinitions="*, Auto, Auto" RowSpacing="0">
+                    <ScrollView BackgroundColor="{Binding Source={x:Reference this}, Path=BackgroundColor}">
+                        <customControls:ItemsControl
+                            x:Name="MainItemsControl"
+                            ItemTemplateSelector="{StaticResource StepTypeSelector}"
+                            ItemsSource="{Binding Steps}"
+                            Spacing="10" />
+                    </ScrollView>
+
+                    <customControls:Separator Grid.Row="1" Orientation="Horizontal" />
+
+                    <customControls:SingleWorkflowStepView
+                        Grid.Row="2"
+                        HeightRequest="{Binding Source={x:Reference WorkflowView}, Path=BindingContext.CurrentStepViewHeight}"
+                        WorkflowStep="{Binding Source={x:Reference WorkflowView}, Path=BindingContext.CurrentSubStep}" />
+                </Grid>-->
+                <ScrollView BackgroundColor="{Binding Source={x:Reference this}, Path=BackgroundColor}">
+                    <ScrollView.VerticalScrollBarVisibility>
+                        <OnPlatform x:TypeArguments="ScrollBarVisibility">
+                            <On Platform="GTK" Value="Always" />
+                            <On Platform="UWP" Value="Default" />
+                        </OnPlatform>
+                    </ScrollView.VerticalScrollBarVisibility>
+                    <ScrollView.Padding>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <OnPlatform.Platforms>
+                                <On Platform="GTK" Value="0, 0, 20, 0" />
+                                <On Platform="UWP" Value="0, 0, 0, 0" />
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </ScrollView.Padding>
+                    <customControls:ItemsControl
+                        x:Name="MainItemsControl"
+                        ItemTemplateSelector="{StaticResource StepTypeSelector}"
+                        ItemsSource="{Binding Steps}"
+                        Spacing="10" />
+                </ScrollView>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <ContentView x:Name="WorkflowView" />
+    </ContentView.Content>
+</ContentView>

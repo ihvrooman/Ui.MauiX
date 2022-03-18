@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:CustomFrame
+    x:Class="Ui.MauiX.CustomControls.CustomButton"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    x:Name="this">
+    <customControls:CustomFrame.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="customControls:CustomButton" />
+        </ResourceDictionary>
+    </customControls:CustomFrame.Resources>
+    <customControls:CustomFrame.GestureRecognizers>
+        <TapGestureRecognizer Tapped="CustomButton_Tapped" />
+    </customControls:CustomFrame.GestureRecognizers>
+    <customControls:CustomFrame.Content>
+        <customControls:CustomLabel
+            BindingContext="{x:Reference this}"
+            HorizontalTextAlignment="Center"
+            Text="{Binding Text}"
+            VerticalTextAlignment="Center" />
+    </customControls:CustomFrame.Content>
+</customControls:CustomFrame>

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.Test.Views.PageControlsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters;assembly=Ui.MauiX"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers;assembly=Ui.MauiX"
+    xmlns:mauiXResources="clr-namespace:Ui.MauiX.Resources;assembly=Ui.MauiX">
+    <ContentView.Content>
+        <Grid ColumnDefinitions="Auto, 400">
+            <customControls:Separator Grid.Column="0" Orientation="Vertical" />
+
+            <Grid
+                Grid.Column="1"
+                Margin="20,0,0,0"
+                RowDefinitions="Auto, Auto, *">
+
+                <Label
+                    Grid.Row="0"
+                    FontSize="18"
+                    HeightRequest="40"
+                    Text="Page Controls" />
+
+                <customControls:Separator
+                    Grid.Row="1"
+                    Margin="0,0,35,0"
+                    Orientation="Horizontal" />
+
+                <ScrollView
+                    Grid.Row="2"
+                    Padding="0,0,35,0"
+                    BackgroundColor="{x:Static mauiXResources:CustomColors.BackgroundColor}">
+                    <StackLayout Padding="0,10" Spacing="15">
+                        <customControls:ToggleSwitch
+                            State="{Binding IsEnabled, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                            ToggledText="Enabled"
+                            UntoggledText="Disabled" />
+                        <customControls:Setter
+                            InputMode="Toggle"
+                            Label="Icons"
+                            ToggleState="{Binding AreIconsVisible, Converter={mauiXConverters:BoolToToggleStateConverter}}"
+                            ToggledValueText="Visible"
+                            UntoggledValueText="Hidden" />
+                        <customControls:Setter
+                            ButtonSize="50"
+                            InputMode="Selection"
+                            ItemTemplate="{StaticResource SelectionControlIconDataTemplate}"
+                            ItemsSource="{Binding AvailableIconResourceIds}"
+                            Label="Icon"
+                            Value="{Binding IconResourceId}" />
+
+                        <customControls:Separator Orientation="Horizontal" />
+
+                        <customControls:Setter
+                            Label="Background Color"
+                            Style="{StaticResource ColorSetterStyle}"
+                            Value="{Binding BackgroundColor}" />
+                        <customControls:Setter
+                            Label="Disabled Background Color"
+                            Style="{StaticResource ColorSetterStyle}"
+                            Value="{Binding DisabledBackgroundColor}" />
+
+                        <customControls:Setter
+                            Label="Text Color"
+                            Style="{StaticResource ColorSetterStyle}"
+                            Value="{Binding TextColor}" />
+                        <customControls:Setter
+                            Label="Disabled Text Color"
+                            Style="{StaticResource ColorSetterStyle}"
+                            Value="{Binding DisabledTextColor}" />
+
+                        <customControls:Setter
+                            Label="Border Color"
+                            Style="{StaticResource ColorSetterStyle}"
+                            Value="{Binding BorderColor}" />
+                        <customControls:Setter
+                            Label="Disabled Border Color"
+                            Style="{StaticResource ColorSetterStyle}"
+                            Value="{Binding DisabledBorderColor}" />
+
+                        <customControls:Separator Orientation="Horizontal" />
+
+                        <customControls:Setter
+                            InputMode="Numeric"
+                            Label="Border Thickness"
+                            Max="1000"
+                            MaxNumberOfDecimalPlaces="2"
+                            Min="0"
+                            Value="{Binding BorderThickness}" />
+                        <customControls:Setter
+                            InputMode="Numeric"
+                            Label="Font Size"
+                            Max="100"
+                            MaxNumberOfDecimalPlaces="0"
+                            Min="0"
+                            Value="{Binding FontSize}" />
+                        <customControls:Setter
+                            InputMode="Numeric"
+                            Label="Icon Size"
+                            Max="100"
+                            MaxNumberOfDecimalPlaces="0"
+                            Min="0"
+                            Value="{Binding IconSize}" />
+
+                        <customControls:Separator Orientation="Horizontal" />
+
+
+                        <customControls:Setter
+                            x:Name="UniformCornerRadiusSetter"
+                            InputMode="Numeric"
+                            Label="Uniform Corner Radius"
+                            Max="100"
+                            MaxNumberOfDecimalPlaces="0"
+                            Min="0"
+                            ValueChanged="UniformCornerRadiusSetter_ValueChanged"
+                            Value="{Binding CornerRadius, Converter={mauiXConverters:DoubleToUniformCornerRadiusProperty}, ConverterParameter=invert}" />
+                        <customControls:Setter
+                            InputMode="Numeric"
+                            Label="Top Left Corner Radius"
+                            Max="100"
+                            MaxNumberOfDecimalPlaces="0"
+                            Min="0"
+                            ValueChanged="IndividualCornerRadiusSetter_ValueChanged"
+                            Value="{Binding TopLeftCornerRadius}" />
+                        <customControls:Setter
+                            InputMode="Numeric"
+                            Label="Top Right Corner Radius"
+                            Max="100"
+                            MaxNumberOfDecimalPlaces="0"
+                            Min="0"
+                            ValueChanged="IndividualCornerRadiusSetter_ValueChanged"
+                            Value="{Binding TopRightCornerRadius}" />
+                        <customControls:Setter
+                            InputMode="Numeric"
+                            Label="Bottom Left Corner Radius"
+                            Max="100"
+                            MaxNumberOfDecimalPlaces="0"
+                            Min="0"
+                            ValueChanged="IndividualCornerRadiusSetter_ValueChanged"
+                            Value="{Binding BottomLeftCornerRadius}" />
+                        <customControls:Setter
+                            InputMode="Numeric"
+                            Label="Bottom Right Corner Radius"
+                            Max="100"
+                            MaxNumberOfDecimalPlaces="0"
+                            Min="0"
+                            ValueChanged="IndividualCornerRadiusSetter_ValueChanged"
+                            Value="{Binding BottomRightCornerRadius}" />
+
+                        <StackLayout x:Name="ItemsControl" BindableLayout.ItemsSource="{Binding SupplementalPageControlTypes}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout
+                                        x:Name="StackLayout"
+                                        Margin="0,0,0,15"
+                                        Spacing="15">
+                                        <customControls:Separator Orientation="Horizontal" VerticalOptions="Start" />
+                                        <ContentView BindingContext="{Binding Source={x:Reference ItemsControl}, Path=BindingContext}" Content="{Binding Source={x:Reference StackLayout}, Path=BindingContext, Converter={mauiXConverters:TypeToInstanceConverter}}" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

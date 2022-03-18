@@ -1,0 +1,18 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+  - build
+
+build:
+  stage: build
+#  image: $ci_registry/build-containers/win-sdk-with-gtk-sharp:latest
+  script:
+    - nuget restore .\\Sotax.Ui.MauiX.sln
+    - msbuild /restore:True .\\Sotax.Ui.MauiX.sln
+    
+  tags:
+#    - docker-windows
+    - win-shell
+
+

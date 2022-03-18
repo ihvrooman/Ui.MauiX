@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.ManualEntryWorkflowStepCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    x:Name="this"
+    BackgroundColor="White">
+    <ContentView.Content>
+        <Grid Padding="10">
+            <StackLayout
+                HeightRequest="180"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}"
+                Spacing="15"
+                VerticalOptions="Center">
+
+                <Label
+                    Margin="15,0"
+                    FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MediumFontSize}"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding Description}"
+                    VerticalOptions="Center" />
+
+                <customControls:CustomFrame
+                    BorderColor="{Binding FrameColor, Source={x:Reference this}}"
+                    BorderThickness="2"
+                    CornerRadius="6"
+                    VerticalOptions="Center"
+                    WidthRequest="200">
+                    <Entry
+                        x:Name="idEntry"
+                        BackgroundColor="White"
+                        Text="{Binding EnteredValue}"
+                        VerticalOptions="Center" />
+                </customControls:CustomFrame>
+
+                <customControls:CustomButton
+                    x:Name="ConfirmButton"
+                    BackgroundColor="Green"
+                    BorderThickness="0"
+                    Clicked="ConfirmButton_Clicked"
+                    CornerRadius="20"
+                    FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=SmallFontSize}"
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    Text="Confirm"
+                    TextColor="White"
+                    VerticalOptions="Center"
+                    WidthRequest="150" />
+            </StackLayout>
+
+            <customControls:CompletedWorkflowStepView VerticalOptions="Center" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

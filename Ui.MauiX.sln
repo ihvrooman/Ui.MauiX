@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ui.MauiX", "Ui.MauiX\Ui.MauiX.csproj", "{76108181-0BF2-4108-BD0D-CD5F5DF3B52C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ui.MauiX.GTK", "Ui.MauiX.GTK\Ui.MauiX.GTK.csproj", "{56EFD960-E596-4726-810C-56D816F02A2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76108181-0BF2-4108-BD0D-CD5F5DF3B52C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76108181-0BF2-4108-BD0D-CD5F5DF3B52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76108181-0BF2-4108-BD0D-CD5F5DF3B52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76108181-0BF2-4108-BD0D-CD5F5DF3B52C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56EFD960-E596-4726-810C-56D816F02A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56EFD960-E596-4726-810C-56D816F02A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56EFD960-E596-4726-810C-56D816F02A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56EFD960-E596-4726-810C-56D816F02A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84D3A4A7-083F-4078-817D-15D7BA9A351A}
+	EndGlobalSection
+EndGlobal

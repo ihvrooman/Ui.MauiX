@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customControls:BaseCustomNavigationPage
+    x:Class="Ui.MauiX.Test.Views.PageNavigatorPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters;assembly=Ui.MauiX"
+    xmlns:viewModels="clr-namespace:Ui.MauiX.Test.ViewModels"
+    xmlns:views="clr-namespace:Ui.MauiX.Test.Views"
+    Title="Page Navigator"
+    ControlTemplate="{StaticResource CustomNavigationPageControlTemplate}"
+    IsBackButtonEnabled="{Binding IsEnabled}">
+    <customControls:BaseCustomNavigationPage.BindingContext>
+        <viewModels:PageCacheViewModel />
+    </customControls:BaseCustomNavigationPage.BindingContext>
+    <customControls:BaseCustomNavigationPage.Content>
+        <Grid Margin="20,20,0,20" ColumnDefinitions="*, Auto">
+            <StackLayout Grid.Column="0" Spacing="0">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style x:Key="Style0" TargetType="customControls:PageNavigator">
+                            <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+                        </Style>
+
+                        <Style
+                            x:Key="Style1"
+                            BasedOn="{StaticResource Style0}"
+                            TargetType="customControls:PageNavigator">
+                            <Setter Property="BackgroundColor" Value="{Binding BackgroundColor}" />
+                            <Setter Property="DisabledBackgroundColor" Value="{Binding DisabledBackgroundColor}" />
+                            <Setter Property="BorderColor" Value="{Binding BorderColor}" />
+                            <Setter Property="DisabledBorderColor" Value="{Binding DisabledBorderColor}" />
+                            <Setter Property="BorderThickness" Value="{Binding BorderThickness}" />
+                            <Setter Property="TextColor" Value="{Binding TextColor}" />
+                            <Setter Property="DisabledTextColor" Value="{Binding DisabledTextColor}" />
+                            <Setter Property="FontSize" Value="{Binding FontSize}" />
+                            <Setter Property="IsPageCached" Value="{Binding ArePagesCached}" />
+                            <Setter Property="IconSize" Value="{Binding IconSize}" />
+                            <Setter Property="IconResourceId" Value="{x:Null}"/>
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding AreIconsVisible}"
+                                    TargetType="customControls:PageNavigator"
+                                    Value="true">
+                                    <Setter Property="IconResourceId" Value="{Binding IconResourceId}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+
+                <customControls:PageNavigator
+                    IconResourceId="DeviceInfo.png"
+                    Label="Default Style"
+                    PageType="{x:Type views:TestPopup}"
+                    Preview="All Systems Go"
+                    Style="{StaticResource Style0}" />
+                <customControls:PageNavigator
+                    Label="Test Info"
+                    PageType="{x:Type views:TestPopup}"
+                    Preview="Test Ready"
+                    Style="{StaticResource Style1}" />
+            </StackLayout>
+
+            <views:PageControlsView Grid.Column="1" />
+        </Grid>
+    </customControls:BaseCustomNavigationPage.Content>
+</customControls:BaseCustomNavigationPage>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customControls:ContentPageWithSetPropertyMethod
+    x:Class="Ui.MauiX.CustomControls.BaseInputControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXResources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters">
+    <customControls:ContentPageWithSetPropertyMethod.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <mauiXResources:Style />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="DefaultInputControlItemTemplate">
+                <Grid>
+                    <Label
+                        FontSize="16"
+                        Text="{Binding Converter={mauiXConverters:SelectionControlTextConverter}}"
+                        VerticalOptions="Center" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </customControls:ContentPageWithSetPropertyMethod.Resources>
+</customControls:ContentPageWithSetPropertyMethod>

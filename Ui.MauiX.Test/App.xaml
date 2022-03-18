@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="Ui.MauiX.Test.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters;assembly=Ui.MauiX"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers;assembly=Ui.MauiX"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources;assembly=Ui.MauiX"
+    xmlns:views="clr-namespace:Ui.MauiX.Test.Views"
+    mc:Ignorable="d">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+
+            <ControlTemplate x:Key="BasePageControlTemplate">
+                <Grid Margin="20,20,0,20" ColumnDefinitions="*, Auto">
+                    <ContentPresenter Grid.Column="0" BackgroundColor="{x:Static resources:CustomColors.BackgroundColor}" />
+
+                    <views:PageControlsView Grid.Column="1" BindingContext="{TemplateBinding BindingContext}" />
+                </Grid>
+            </ControlTemplate>
+
+            <!--<Style BasedOn="{StaticResource NormalButtonStyle}" TargetType="customControls:CustomButton" />-->
+
+            <Style x:Key="ColorSetterStyle" TargetType="customControls:Setter">
+                <Setter Property="InputMode" Value="Selection" />
+                <Setter Property="ButtonSize" Value="50" />
+                <Setter Property="ItemsSource" Value="{Binding AvailableColors}" />
+                <Setter Property="ItemTemplate" Value="{StaticResource SelectionControlColorDataTemplate}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

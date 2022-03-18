@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.UserInteractionWorkflowStepCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:componentEnums="clr-namespace:Components.Enums;assembly=Components"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXEnums="clr-namespace:Ui.MauiX.Enums"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:mauiXResources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:models="clr-namespace:Ui.MauiX.Models"
+    x:Name="this"
+    BackgroundColor="White">
+    <ContentView.Content>
+        <StackLayout>
+            <StackLayout
+                Padding="10"
+                BackgroundColor="{x:Static mauiXResources:CustomColors.LightGreen}"
+                IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}"
+                Orientation="Horizontal">
+
+                <Image
+                    HeightRequest="50"
+                    IsVisible="{Binding IconResourceId, Converter={mauiXConverters:ObjectToIsNullConverter}, ConverterParameter=invert}"
+                    Source="{Binding IconResourceId, Converter={mauiXConverters:ImageSourceFromStringConverter}}"
+                    WidthRequest="50" />
+
+                <Label
+                    Margin="15,0"
+                    FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MediumFontSize}"
+                    HorizontalOptions="StartAndExpand"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding Name}"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout
+                Padding="10"
+                IsVisible="{Binding IsCompleted, Converter={mauiXConverters:InverseBooleanConverter}}"
+                Orientation="Horizontal">
+
+                <Label
+                    Margin="15,0"
+                    FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:DynamicWorkflow}}, Path=MediumFontSize}"
+                    HorizontalOptions="StartAndExpand"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding Description}"
+                    VerticalOptions="Center" />
+
+
+                <Image
+                    HeightRequest="70"
+                    Source="{mauiXHelpers:ResourceImage ResourceId=ThumbsUp.png}"
+                    VerticalOptions="Start"
+                    WidthRequest="70">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ConfirmCommand, Source={x:Reference this}}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+
+            <customControls:CompletedWorkflowStepView Padding="10" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

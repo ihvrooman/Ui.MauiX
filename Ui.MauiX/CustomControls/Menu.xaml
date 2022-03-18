@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Ui.MauiX.CustomControls.Menu"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    x:Name="this">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout
+            BackgroundColor="{Binding MenuSettings.BackgroundColor}"
+            BindingContext="{x:Reference this}"
+            Orientation="{Binding MenuSettings.Orientation, Converter={mauiXConverters:OrientationToStackOrientationConverter}}"
+            Spacing="0">
+            <customControls:Separator
+                x:Name="FirstSeparator"
+                Orientation="{Binding MenuSettings.Orientation, Converter={mauiXConverters:OrientationToInverseOrientationConverter}}"
+                Thickness="{Binding MenuSettings.SeparatorThickness}" />
+            <ScrollView BackgroundColor="{Binding MenuSettings.BackgroundColor}">
+                <customControls:ItemsControl ItemsSource="{Binding CustomMenuItems}" Orientation="{Binding MenuSettings.Orientation, Converter={mauiXConverters:OrientationToStackOrientationConverter}}">
+                    <customControls:ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="{Binding Source={RelativeSource AncestorType={x:Type customControls:ItemsControl}}, Path=Orientation}" Spacing="0">
+                                <customControls:MenuItem
+                                    IconImageResourceId="{Binding IconResourceId}"
+                                    IsEnabled="{Binding IsEnabled}"
+                                    IsSelected="{Binding IsSelected}"
+                                    MenuSettings="{Binding Source={RelativeSource AncestorType={x:Type customControls:Menu}}, Path=MenuSettings}"
+                                    Text="{Binding Title}">
+                                    <customControls:MenuItem.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type customControls:Menu}}, Path=SelectCustomMenuItemCommand}" CommandParameter="{Binding}" />
+                                    </customControls:MenuItem.GestureRecognizers>
+                                </customControls:MenuItem>
+                                <customControls:Separator Orientation="{Binding Source={RelativeSource AncestorType={x:Type customControls:Menu}}, Path=MenuSettings.Orientation, Converter={mauiXConverters:OrientationToInverseOrientationConverter}}" Thickness="{Binding Source={RelativeSource AncestorType={x:Type customControls:Menu}}, Path=MenuSettings.SeparatorThickness}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </customControls:ItemsControl.ItemTemplate>
+                </customControls:ItemsControl>
+            </ScrollView>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

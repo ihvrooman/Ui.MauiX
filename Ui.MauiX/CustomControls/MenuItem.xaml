@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:CustomFrame
+    x:Class="Ui.MauiX.CustomControls.MenuItem"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXModels="clr-namespace:Ui.MauiX.Models"
+    xmlns:resources="clr-namespace:Ui.MauiX.Resources"
+    x:Name="this"
+    BackgroundColor="{Binding Source={x:Reference this}, Path=MenuSettings.MenuItemBackgroundColor}"
+    BorderThickness="0"
+    DisabledBackgroundColor="{Binding Source={x:Reference this}, Path=MenuSettings.DisabledMenuItemBackgroundColor}"
+    HeightRequest="{Binding Source={x:Reference this}, Path=MenuSettings.MenuItemHeight}"
+    WidthRequest="{Binding Source={x:Reference this}, Path=MenuSettings.MenuItemWidth}">
+    <customControls:CustomFrame.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Style />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </customControls:CustomFrame.Resources>
+    <customControls:CustomFrame.Content>
+        <Grid
+            Padding="10"
+            BindingContext="{x:Reference this}"
+            ColumnSpacing="10"
+            RowSpacing="0">
+            <Grid.Triggers>
+                <DataTrigger
+                    Binding="{Binding IsSelected}"
+                    TargetType="Grid"
+                    Value="true">
+                    <Setter Property="BackgroundColor" Value="{Binding MenuSettings.SelectedMenuItemBackgroundColor}" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Image
+                Grid.Row="0"
+                Grid.Column="0"
+                HeightRequest="{Binding MenuSettings.MenuItemIconSize}"
+                IsEnabled="{Binding IsEnabled}"
+                IsVisible="{Binding MenuSettings.AreMenuItemIconsVisible}"
+                Source="{Binding IconImageResourceId, Converter={mauiXConverters:ImageSourceFromStringConverter}}"
+                WidthRequest="{Binding MenuSettings.MenuItemIconSize}" />
+
+            <customControls:CustomLabel
+                x:Name="Label"
+                Grid.Row="0"
+                Grid.Column="1"
+                DisabledTextColorPath="MenuSettings.DisabledMenuItemTextColor"
+                FontSize="{Binding MenuSettings.MenuItemFontSize}"
+                IsVisible="{Binding MenuSettings.IsMenuItemTextVisible}"
+                Text="{Binding Text}"
+                TextColorPath="MenuSettings.MenuItemTextColor"
+                VerticalTextAlignment="Center" />
+        </Grid>
+    </customControls:CustomFrame.Content>
+</customControls:CustomFrame>

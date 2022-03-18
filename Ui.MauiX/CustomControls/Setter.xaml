@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:CustomFrame
+    x:Class="Ui.MauiX.CustomControls.Setter"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:mauiXResources="clr-namespace:Ui.MauiX.Resources"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uiEnums="clr-namespace:Ui.Enums;assembly=Ui"
+    x:Name="this"
+    mc:Ignorable="d">
+    <customControls:CustomFrame.Triggers>
+        <DataTrigger
+            Binding="{Binding Source={x:Reference this}, Path=IsRequiredErrorMessageVisible}"
+            TargetType="customControls:CustomFrame"
+            Value="true">
+            <Setter Property="BorderColor" Value="{Static mauiXResources:CustomColors.Red}" />
+        </DataTrigger>
+    </customControls:CustomFrame.Triggers>
+    <customControls:CustomFrame.GestureRecognizers>
+        <TapGestureRecognizer Tapped="Setter_Tapped" />
+    </customControls:CustomFrame.GestureRecognizers>
+    <customControls:CustomFrame.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="DefaultSetterItemTemplate">
+                <Grid>
+                    <customControls:CustomLabel
+                        BindingContext="{x:Reference this}"
+                        Text="{Binding Source={RelativeSource AncestorType={x:Type Grid}}, Path=BindingContext, Converter={mauiXConverters:SelectionControlTextConverter}}"
+                        VerticalOptions="Center" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="EnumDataItemSetterItemTemplate">
+                <Grid>
+                    <customControls:CustomLabel
+                        BindingContext="{x:Reference this}"
+                        Text="{Binding DataItem, Converter={mauiXConverters:EnumDataItemToDisplayStringConverter}}"
+                        VerticalOptions="Center" />
+                </Grid>
+            </DataTemplate>
+            <Style TargetType="customControls:Setter">
+                <Setter Property="DisabledBackgroundColor" Value="{x:Static mauiXResources:CustomColors.LightDisabledBackgroundColor}" />
+                <Setter Property="DisabledBorderColor" Value="{x:Static mauiXResources:CustomColors.LightDisabledBorderColor}" />
+            </Style>
+        </ResourceDictionary>
+    </customControls:CustomFrame.Resources>
+    <customControls:CustomFrame.Content>
+        <Grid BindingContext="{x:Reference this}" HeightRequest="{Binding HeightRequest}">
+            <Grid
+                Padding="10"
+                ColumnDefinitions="Auto, *, Auto, Auto, Auto"
+                ColumnSpacing="0">
+
+                <!--  Icon  -->
+                <Image
+                    Grid.Column="0"
+                    Margin="5,0"
+                    HeightRequest="{Binding IconSize}"
+                    HorizontalOptions="Start"
+                    IsEnabled="{Binding IsEnabled}"
+                    IsVisible="{Binding IconResourceId, Converter={mauiXConverters:TextToIsVisibleConverter}}"
+                    Source="{Binding IconResourceId, Converter={mauiXConverters:ImageSourceFromStringConverter}}"
+                    VerticalOptions="Center"
+                    WidthRequest="{Binding IconSize}" />
+
+                <!--  Setter label  -->
+                <customControls:CustomLabel
+                    Grid.Column="1"
+                    Margin="10,0"
+                    HorizontalOptions="StartAndExpand"
+                    Text="{Binding Label}"
+                    VerticalOptions="Center" />
+
+                <!--  Value  -->
+                <StackLayout
+                    Grid.Column="2"
+                    Margin="0"
+                    BindableLayout.ItemTemplate="{Binding ItemTemplate}"
+                    BindableLayout.ItemsSource="{Binding Value, Converter={mauiXConverters:ValueToListConverter}}"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsValueVisible}"
+                    Orientation="Horizontal" />
+
+                <!--  IsRequired error message indicator  -->
+                <Label
+                    Grid.Column="2"
+                    IsVisible="{Binding IsRequiredErrorMessageVisible}"
+                    Text="Required"
+                    TextColor="{Static mauiXResources:CustomColors.Red}"
+                    VerticalTextAlignment="Center" />
+
+                <!--  Value suffix  -->
+                <customControls:CustomLabel
+                    Grid.Column="3"
+                    Margin="5,0,10,0"
+                    HorizontalOptions="End"
+                    Text="{Binding ValueSuffix}"
+                    VerticalOptions="Center">
+                    <customControls:CustomLabel.Triggers>
+                        <DataTrigger
+                            Binding="{Binding InputMode}"
+                            TargetType="customControls:CustomLabel"
+                            Value="{x:Static uiEnums:InputMode.Toggle}">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </customControls:CustomLabel.Triggers>
+                </customControls:CustomLabel>
+
+                <!--  Selection arrow  -->
+                <Image
+                    Grid.Column="4"
+                    HeightRequest="25"
+                    IsVisible="False"
+                    Source="{mauiXHelpers:ResourceImage ResourceId=down-arrow-50-gray.png}"
+                    WidthRequest="25">
+                    <Image.Triggers>
+                        <DataTrigger
+                            Binding="{Binding InputMode}"
+                            TargetType="Image"
+                            Value="{x:Static uiEnums:InputMode.Selection}">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+
+                <!--  Toggle switch  -->
+                <customControls:ToggleSwitch
+                    x:Name="ToggleSwitch"
+                    Grid.Column="4"
+                    Margin="5,0,10,0"
+                    IsEnabled="{Binding IsEnabled}"
+                    IsLabelVisible="False"
+                    IsReadOnly="{Binding IsReadOnly}"
+                    IsVisible="False"
+                    State="{Binding ToggleState}"
+                    Toggled="ToggleSwitch_Toggled"
+                    VerticalOptions="Center"
+                    WidthRequest="60">
+                    <customControls:ToggleSwitch.Triggers>
+                        <DataTrigger
+                            Binding="{Binding InputMode}"
+                            TargetType="customControls:ToggleSwitch"
+                            Value="{x:Static uiEnums:InputMode.Toggle}">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </customControls:ToggleSwitch.Triggers>
+                </customControls:ToggleSwitch>
+            </Grid>
+        </Grid>
+    </customControls:CustomFrame.Content>
+</customControls:CustomFrame>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:CustomFrame
+    x:Class="Ui.MauiX.CustomControls.Graph"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mauiXConverters="clr-namespace:Ui.MauiX.Converters"
+    xmlns:mauiXHelpers="clr-namespace:Ui.MauiX.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    x:Name="this"
+    mc:Ignorable="d">
+    <customControls:CustomFrame.Content>
+        <Grid
+            BackgroundColor="{Binding GraphSettings.BackgroundColor, Converter={mauiXConverters:SKColorToColorConverter}}"
+            BindingContext="{x:Reference this}"
+            ColumnDefinitions="*, Auto"
+            ColumnSpacing="0">
+
+            <skia:SKCanvasView
+                x:Name="SKCanvas_View"
+                Grid.Column="0"
+                BackgroundColor="Transparent"
+                PaintSurface="SKCanvas_View_PaintSurface" />
+
+            <customControls:ItemsControl
+                Grid.Column="1"
+                Padding="0,20,20,20"
+                BackgroundColor="{Binding GraphSettings.BackgroundColor, Converter={mauiXConverters:SKColorToColorConverter}}"
+                IsVisible="{Binding GraphSettings.ShowSeriesLegend}"
+                ItemsSource="{Binding GraphSettings.DataSeriesRenderingInfo}"
+                VerticalOptions="Center">
+                <customControls:ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            ColumnDefinitions="50, Auto"
+                            HorizontalOptions="Start"
+                            IsVisible="{Binding Name, Converter={mauiXConverters:TextToIsVisibleConverter}}">
+                            <customControls:Separator
+                                Grid.Column="0"
+                                Orientation="Horizontal"
+                                Thickness="{Binding Source={RelativeSource AncestorType={x:Type customControls:Graph}}, Path=GraphSettings.SeriesLegendLineThickness}"
+                                Color="{Binding Color, Converter={mauiXConverters:SKColorToColorConverter}}" />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{Binding Source={RelativeSource AncestorType={x:Type customControls:Graph}}, Path=GraphSettings.SeriesLegendTextSize}"
+                                Text="{Binding Name}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </customControls:ItemsControl.ItemTemplate>
+            </customControls:ItemsControl>
+        </Grid>
+    </customControls:CustomFrame.Content>
+</customControls:CustomFrame>

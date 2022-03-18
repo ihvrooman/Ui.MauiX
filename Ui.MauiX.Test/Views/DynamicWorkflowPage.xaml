@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<customControls:BaseCustomNavigationPage
+    x:Class="Ui.MauiX.Test.Views.DynamicWorkflowPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customControls="clr-namespace:Ui.MauiX.CustomControls;assembly=Ui.MauiX"
+    xmlns:skiaSharp="clr-namespace:SkiaSharp;assembly=SkiaSharp"
+    xmlns:viewModels="clr-namespace:Ui.MauiX.Test.ViewModels"
+    xmlns:views="clr-namespace:Ui.MauiX.Test.Views"
+    Title="Dynamic Workflow"
+    ControlTemplate="{StaticResource CustomNavigationPageControlTemplate}"
+    IsBackButtonEnabled="{Binding IsEnabled}">
+    <customControls:BaseCustomNavigationPage.Content>
+        <StackLayout>
+            <customControls:PageNavigator Label="Process Workflow" PageType="{x:Type views:ProcessWorkflowPopup}" />
+            <customControls:PageNavigator Label="Single Process Workflow" PageType="{x:Type views:SingleProcessWorkflowPopup}" />
+            <customControls:PageNavigator Label="Workflow" PageType="{x:Type views:WorkflowPopup}" />
+            <customControls:PageNavigator Label="Chat Workflow" PageType="{x:Type views:ChatWorkflowPopup}" />
+        </StackLayout>
+    </customControls:BaseCustomNavigationPage.Content>
+</customControls:BaseCustomNavigationPage>
